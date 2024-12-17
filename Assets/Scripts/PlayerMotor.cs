@@ -20,25 +20,33 @@ public class PlayerMotor : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
     }
-    public void Crouch()
+
+    public void StartCrouch()
     {
-        crouching = !crouching;
+        crouching = true;
         crouchTimer = 0;
         lerpCrouch = true;
     }
 
-    public void Sprint()
+    public void StopCrouch()
     {
-        sprinting = !sprinting;
-        if (sprinting)
-        {
-            speed = 8;
-        }
-        else
-        {
-            speed = 5;
-        }
+        crouching = false;
+        crouchTimer = 0;
+        lerpCrouch = true;
     }
+
+    public void StartSprint()
+    {
+        sprinting = true;
+        speed = 8;
+    }
+
+    public void StopSprint()
+    {
+        sprinting = false;
+        speed = 4;
+    }
+
 
     // Update is called once per frame
     void Update()

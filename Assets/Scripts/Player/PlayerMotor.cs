@@ -36,7 +36,7 @@ public class PlayerMotor : MonoBehaviour
 
     public void StartSprint()
     {
-        speed = 8;
+        speed = 12;
     }
 
     public void StopSprint()

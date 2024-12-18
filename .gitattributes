@@ -1,0 +1,7 @@
+*.cs linguist-generated=true
+*.shader linguist-generated=true
+*.cginc linguist-generated=true
+*.hlsl linguist-generated=true
+*.compute linguist-generated=true
+
+Assets/Scripts/** linguist-generated=false

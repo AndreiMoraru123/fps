@@ -5,3 +5,4 @@
 *.compute linguist-generated=true
 
 Assets/Scripts/** linguist-generated=false
+Assets/Editor/** linguist-generated=false

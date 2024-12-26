@@ -12,17 +12,25 @@ public class Bullet : MonoBehaviour
             Debug.Log("Hit Player");
             hitTransform.GetComponent<PlayerHealth>().TakeDamage(10);
         }
+
         if (hitTransform.CompareTag("Target"))
         {
             Debug.Log("Hit " + hitTransform.gameObject.name);
             CreateBulletImpactEffect(collision);
             Destroy(gameObject);
         }
+
         if (hitTransform.CompareTag("Solid"))
         {
             Debug.Log("Hit a wall");
             CreateBulletImpactEffect(collision);
             Destroy(gameObject);
+        }
+
+        if (hitTransform.CompareTag("Beer"))
+        {
+            Debug.Log("Hit a wall");
+            collision.gameObject.GetComponent<BeerBottle>().Shatter();
         }
     }
 

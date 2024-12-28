@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerWeapon : WeaponBase
@@ -13,18 +14,28 @@ public class PlayerWeapon : WeaponBase
     public int bulletsPerBurst = 3;
     public int burstBulletsLeft;
     public float spreadIntensity;
+
     public GameObject muzzleEffect;
     private Animator animator;
+
+    // Reloading
+    public float reloadTime;
+    public int magazineSize, bulletsLeft;
+    public bool isReloading;
 
     public void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         animator = GetComponent<Animator>();
+
+        bulletsLeft = magazineSize;
     }
 
     private void DelayedFire()
     {
+        bulletsLeft--;
+
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("RECOIL");
 
@@ -51,6 +62,21 @@ public class PlayerWeapon : WeaponBase
             burstBulletsLeft--;
             Invoke("DelayedFire", shootingDelay);
         }
+    }
+
+    private void Reload()
+    {
+
+        SoundManager.Instance.reloadingSoundM1911.Play();
+
+        isReloading = true;
+        Invoke("ReloadCompleted", reloadTime);
+    }
+
+    private void ReloadCompleted()
+    {
+        bulletsLeft = magazineSize;
+        isReloading = false;
     }
 
     private void ResetShot()
@@ -97,6 +123,11 @@ public class PlayerWeapon : WeaponBase
 
     void Update()
     {
+        if (bulletsLeft == 0 && isShooting)
+        {
+            SoundManager.Instance.emptyMagazineSoundM1911.Play();
+        }
+
         if (currentShootingMode == ShootingMode.Auto)
         {
             // hold the LMB
@@ -107,10 +138,26 @@ public class PlayerWeapon : WeaponBase
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (readyToShoot && isShooting)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false)
+        {
+            Reload();
+        }
+
+        // automatic reload when the magazine is empty
+        if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
+        {
+            Reload();
+        }
+
+        if (readyToShoot && isShooting && bulletsLeft > 0)
         {
             burstBulletsLeft = bulletsPerBurst;
             DelayedFire();
+        }
+
+        if (AmmoManager.Instance.ammoDisplay != null)
+        {
+            AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst} / {magazineSize / bulletsPerBurst}";
         }
     }
 }

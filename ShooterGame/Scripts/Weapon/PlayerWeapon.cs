@@ -1,13 +1,20 @@
 using TMPro;
 using UnityEngine;
 
+public enum ShootingMode
+{
+    Single, Burst, Auto
+}
+
+public enum WeaponModel
+{
+    M1911,
+    AK47
+}
+
 public class PlayerWeapon : WeaponBase
 {
-    public enum ShootingMode
-    {
-        Single, Burst, Auto
-    }
-    public ShootingMode currentShootingMode;
+
     public bool isShooting, readyToShoot;
     private bool allowReset = true;
     public float shootingDelay = 2f;
@@ -22,6 +29,8 @@ public class PlayerWeapon : WeaponBase
     public float reloadTime;
     public int magazineSize, bulletsLeft;
     public bool isReloading;
+    public ShootingMode currentShootingMode;
+    public WeaponModel weaponModel;
 
     public void Awake()
     {
@@ -39,7 +48,7 @@ public class PlayerWeapon : WeaponBase
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("RECOIL");
 
-        SoundManager.Instance.shootingSoundM1911.Play();
+        SoundManager.Instance.PlayShootingSound(weaponModel);
 
         readyToShoot = false;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
@@ -67,7 +76,9 @@ public class PlayerWeapon : WeaponBase
     private void Reload()
     {
 
-        SoundManager.Instance.reloadingSoundM1911.Play();
+        SoundManager.Instance.PlayReloadSound(weaponModel);
+
+        animator.SetTrigger("RELOAD");
 
         isReloading = true;
         Invoke("ReloadCompleted", reloadTime);
@@ -114,7 +125,7 @@ public class PlayerWeapon : WeaponBase
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("RECOIL");
 
-        SoundManager.Instance.shootingSoundM1911.Play();
+        SoundManager.Instance.PlayShootingSound(weaponModel);
 
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);

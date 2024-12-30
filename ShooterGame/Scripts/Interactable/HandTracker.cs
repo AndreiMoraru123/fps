@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using SimpleJSON;
 using UnityEngine;
 
-public abstract class HandTracker : MonoBehaviour
+public class HandTracker : MonoBehaviour
 {
+    [SerializeField]
+    private OAKForUnity.UBHandTracking handTracking;
 
     [SerializeField]
     protected float requiredStableTime = 0.5f; // how long to hold a gesture
@@ -24,7 +26,7 @@ public abstract class HandTracker : MonoBehaviour
         return -1;
     }
 
-    public string GestureToString(int gesture)
+    public string NumberToString(int gesture)
     {
         switch (gesture)
         {
@@ -47,12 +49,27 @@ public abstract class HandTracker : MonoBehaviour
     }
 
     public int CurrentGesture => lastRecognizedGesture;
-    public abstract int HandleGesture();
-    public bool TryGetStableGesture(out int gesture)
+    public int CountFingersOnHand()
     {
-        gesture = HandleGesture();
+        if (string.IsNullOrEmpty(handTracking.ubHandTrackingResults)) return -1;
 
-        if (gesture == lastRecognizedGesture && gesture != -1)
+        var json = JSON.Parse(handTracking.ubHandTrackingResults);
+        var hand0 = json["hand_0"];
+        var hand1 = json["hand_1"];
+
+        if (hand0 == null && hand1 == null) return -1;
+
+        var activeHand = hand0 ?? hand1;
+
+        var numFingers = CountFingers(activeHand);
+        return numFingers;
+
+    }
+    public bool TryGetStableGesture(out int number)
+    {
+        number = CountFingersOnHand();
+
+        if (number == lastRecognizedGesture && number != -1)
         {
             if (Time.time - gestureStableTime >= requiredStableTime)
             {
@@ -62,7 +79,7 @@ public abstract class HandTracker : MonoBehaviour
         }
         else
         {
-            lastRecognizedGesture = gesture;
+            lastRecognizedGesture = number;
             gestureStableTime = Time.time;
         }
 

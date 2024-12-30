@@ -14,7 +14,7 @@ public class Keypad : Interactable
 
     [SerializeField]
     private float sequenceTimeout = 5f; // time allowed between gestures
-    private KeypadHandTracker handTracker;
+    private HandTracker handTracker;
     private bool doorOpen;
     private List<int> currentSequence = new List<int>();
     private float lastGestureTime;
@@ -22,8 +22,8 @@ public class Keypad : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        if (handTracker == null) handTracker = GetComponent<KeypadHandTracker>();
-        if (handTracker == null) Debug.LogError("missing KeypadHandTracker component.");
+        if (handTracker == null) handTracker = GetComponent<HandTracker>();
+        if (handTracker == null) Debug.LogError("missing HandTracker component.");
         UpdatePromptMessage();
     }
 
@@ -119,7 +119,7 @@ public class Keypad : Interactable
 
     public override bool ValidateInteraction()
     {
-        var number = handTracker.HandleGesture();
+        var number = handTracker.CountFingersOnHand();
         return currentSequence.Count < requiredSequence.Length && number == requiredSequence[currentSequence.Count];
     }
 

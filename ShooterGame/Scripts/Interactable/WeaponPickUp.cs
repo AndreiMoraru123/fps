@@ -11,15 +11,15 @@ public class WeaponPickUp : Interactable
 
     [SerializeField]
     private float sequenceTimeout = 3.5f; // time allowed between gestures
-    private WeaponPickUpHandTracker handTracker;
+    private HandTracker handTracker;
     private string shownGesture;
     private float lastGestureTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (handTracker == null) handTracker = GetComponent<WeaponPickUpHandTracker>();
-        if (handTracker == null) Debug.LogError("missing WeaponPickUpHandTracker component.");
+        if (handTracker == null) handTracker = GetComponent<HandTracker>();
+        if (handTracker == null) Debug.LogError("missing HandTracker component.");
         UpdatePromptMessage();
     }
 
@@ -45,7 +45,7 @@ public class WeaponPickUp : Interactable
     private void UpdatePromptMessage(bool showProgress = false)
     {
         var message = $"Pick up: <color=red>{requiredGesture}</color>";
-        if (showProgress && handTracker.GestureToString(handTracker.CurrentGesture) == requiredGesture)
+        if (showProgress && handTracker.NumberToString(handTracker.CurrentGesture) == requiredGesture)
         {
             var progress = handTracker.StabilityProgress;
             var colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
@@ -96,8 +96,8 @@ public class WeaponPickUp : Interactable
 
     public override bool ValidateInteraction()
     {
-        var number = handTracker.HandleGesture();
-        var gesture = handTracker.GestureToString(number);
+        var number = handTracker.CountFingersOnHand();
+        var gesture = handTracker.NumberToString(number);
         return gesture == requiredGesture;
     }
 

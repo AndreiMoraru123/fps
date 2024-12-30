@@ -1,29 +1,25 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 
-public class Keypad : Interactable
+public class WeaponPickUp : Interactable
 {
-
     [SerializeField]
-    private GameObject door;
-
-    [SerializeField]
-    private int[] requiredSequence;
+    private string[] requiredSequence;
 
     [SerializeField]
     private float sequenceTimeout = 5f; // time allowed between gestures
-    private KeypadHandTracker handTracker;
-    private bool doorOpen;
-    private List<int> currentSequence = new List<int>();
+    private WeaponPickUpHandTracker handTracker;
+    private List<string> currentSequence = new List<string>();
     private float lastGestureTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (handTracker == null) handTracker = GetComponent<KeypadHandTracker>();
-        if (handTracker == null) Debug.LogError("missing KeypadHandTracker component.");
+        if (handTracker == null) handTracker = GetComponent<WeaponPickUpHandTracker>();
+        if (handTracker == null) Debug.LogError("missing WeaponPickUpHandTracker component.");
         UpdatePromptMessage();
     }
 
@@ -48,7 +44,7 @@ public class Keypad : Interactable
 
     private void UpdatePromptMessage(bool showProgress = false)
     {
-        string message = "Code: ";
+        string message = "Pick Up: ";
         for (int i = 0; i < requiredSequence.Length; i++)
         {
             if (i > 0) message += "-";
@@ -58,7 +54,7 @@ public class Keypad : Interactable
             }
             else if (i == currentSequence.Count)
             {
-                if (showProgress && handTracker.CurrentGesture == requiredSequence[i])
+                if (showProgress && handTracker.GestureToString(handTracker.CurrentGesture) == requiredSequence[i])
                 {
                     float progress = handTracker.StabilityProgress;
                     string colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
@@ -79,10 +75,18 @@ public class Keypad : Interactable
 
     public void HandleNewGesture(int gesture)
     {
-        if (gesture >= 0)
+        switch (gesture)
         {
-            currentSequence.Add(gesture);
-            lastGestureTime = Time.time;
+            case 0:
+                currentSequence.Add("fist");
+                lastGestureTime = Time.time;
+                break;
+            case 5:
+                currentSequence.Add("palm");
+                lastGestureTime = Time.time;
+                break;
+            default:
+                return;
         }
 
         bool isValidSoFar = true;
@@ -120,13 +124,24 @@ public class Keypad : Interactable
     public override bool ValidateInteraction()
     {
         var number = handTracker.HandleGesture();
-        return currentSequence.Count < requiredSequence.Length && number == requiredSequence[currentSequence.Count];
+        var gesture = handTracker.GestureToString(number);
+        return currentSequence.Count < requiredSequence.Length && gesture == requiredSequence[currentSequence.Count];
     }
 
     protected override void Interact()
     {
-        doorOpen = !doorOpen;
-        door.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
+        var hoveredWeapon = InteractionManager.Instance.hoveredWeapon;
+        if (hoveredWeapon != null)
+        {
+            Debug.Log("Picked up weapon");
+            WeaponManager.Instance.PickupWeapon(hoveredWeapon.gameObject);
+            InteractionManager.Instance.hoveredWeapon = null;
+        }
+    }
+
+    public bool IsReadyForPickup()
+    {
+        return currentSequence.Count == requiredSequence.Length;
     }
 
 }

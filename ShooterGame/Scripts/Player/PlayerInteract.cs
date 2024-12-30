@@ -19,6 +19,8 @@ public class PlayerInteract : MonoBehaviour
         cam = GetComponent<PlayerLook>().cam;
         playerUI = GetComponent<PlayerUI>();
         inputManager = GetComponent<InputManager>();
+
+        mask = LayerMask.GetMask("Interactable", "Weapon");
     }
 
     // Update is called once per frame

@@ -173,11 +173,6 @@ public class PlayerWeapon : WeaponBase
                 burstBulletsLeft = bulletsPerBurst;
                 DelayedFire();
             }
-
-            if (AmmoManager.Instance.ammoDisplay != null)
-            {
-                AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst} / {magazineSize / bulletsPerBurst}";
-            }
         }
     }
 }

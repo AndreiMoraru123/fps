@@ -28,15 +28,13 @@ public class HandTracker : MonoBehaviour
 
     public string NumberToString(int gesture)
     {
-        switch (gesture)
+        return gesture switch
         {
-            case 0:
-                return "fist";
-            case 5:
-                return "palm";
-            default:
-                return "invalid";
-        }
+            0 => "fist",
+            5 => "palm",
+            _ => "invalid",
+        };
+
     }
 
     public float StabilityProgress

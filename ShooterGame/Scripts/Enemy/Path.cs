@@ -31,7 +31,7 @@ public class Path : MonoBehaviour
     {
         for (int i = 0; i < waypoints.Count; i++)
         {
-            GUIStyle labelStyle = new GUIStyle();
+            var labelStyle = new GUIStyle();
             labelStyle.fontSize = 30;
             labelStyle.normal.textColor = debugColor;
 

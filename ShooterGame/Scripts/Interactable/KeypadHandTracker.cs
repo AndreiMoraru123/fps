@@ -18,7 +18,7 @@ public class KeypadHandTracker : HandTracker
 
         if (hand0 == null && hand1 == null) return -1;
 
-        var activeHand = (hand0 != null) ? hand0 : hand1;
+        var activeHand = hand0 ?? hand1;
 
         var numFingers = CountFingers(activeHand);
         return numFingers;

@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        Transform hitTransform = collision.transform;
+        var hitTransform = collision.transform;
         if (hitTransform.CompareTag("Player"))
         {
             Debug.Log("Hit Player");
@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
 
     private void CreateBulletImpactEffect(Collision collision)
     {
-        ContactPoint contact = collision.contacts[0];
+        var contact = collision.contacts[0];
         var hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab, contact.point, Quaternion.LookRotation(contact.normal));
         hole.transform.SetParent(collision.gameObject.transform);
     }

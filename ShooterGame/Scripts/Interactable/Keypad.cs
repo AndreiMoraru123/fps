@@ -48,7 +48,7 @@ public class Keypad : Interactable
 
     private void UpdatePromptMessage(bool showProgress = false)
     {
-        string message = "Code: ";
+        var message = "Code: ";
         for (int i = 0; i < requiredSequence.Length; i++)
         {
             if (i > 0) message += "-";
@@ -60,8 +60,8 @@ public class Keypad : Interactable
             {
                 if (showProgress && handTracker.CurrentGesture == requiredSequence[i])
                 {
-                    float progress = handTracker.StabilityProgress;
-                    string colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
+                    var progress = handTracker.StabilityProgress;
+                    var colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
                     message += $"<color=#{colorHex}>{requiredSequence[i]}</color>";
                 }
                 else
@@ -85,7 +85,7 @@ public class Keypad : Interactable
             lastGestureTime = Time.time;
         }
 
-        bool isValidSoFar = true;
+        var isValidSoFar = true;
         for (int i = 0; i < currentSequence.Count && i < requiredSequence.Length; i++)
         {
             if (currentSequence[i] != requiredSequence[i])

@@ -32,7 +32,7 @@ public class WeaponBase : MonoBehaviour
 
         if (accuracy != 0f)
         {
-            targetDirection = Quaternion.AngleAxis(UnityEngine.Random.Range(-accuracy, accuracy), Vector3.up) * targetDirection;
+            targetDirection = Quaternion.AngleAxis(Random.Range(-accuracy, accuracy), Vector3.up) * targetDirection;
         }
 
         var bulletRb = bullet.GetComponent<Rigidbody>();

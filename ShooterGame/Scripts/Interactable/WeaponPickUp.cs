@@ -10,7 +10,7 @@ public class WeaponPickUp : Interactable
     private string requiredGesture;
 
     [SerializeField]
-    private float sequenceTimeout = 2f; // time allowed between gestures
+    private float sequenceTimeout = 3.5f; // time allowed between gestures
     private WeaponPickUpHandTracker handTracker;
     private string shownGesture;
     private float lastGestureTime;
@@ -44,12 +44,12 @@ public class WeaponPickUp : Interactable
 
     private void UpdatePromptMessage(bool showProgress = false)
     {
-        string message = $"Pick up <color=red>{requiredGesture}</color>";
+        var message = $"Pick up: <color=red>{requiredGesture}</color>";
         if (showProgress && handTracker.GestureToString(handTracker.CurrentGesture) == requiredGesture)
         {
-            float progress = handTracker.StabilityProgress;
-            string colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
-            message = $"Pick up <color=#{colorHex}>{requiredGesture}</color>";
+            var progress = handTracker.StabilityProgress;
+            var colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
+            message = $"Pick up: <color=#{colorHex}>{requiredGesture}</color>";
         }
         promptMessage = message;
     }
@@ -70,7 +70,7 @@ public class WeaponPickUp : Interactable
                 return;
         }
 
-        bool isValid = true;
+        var isValid = true;
         if (shownGesture != requiredGesture)
         {
             isValid = false;

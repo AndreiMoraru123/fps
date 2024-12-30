@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
                 float angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
                 if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
                 {
-                    Ray ray = new Ray(transform.position + (Vector3.up * eyeHeight), targetDirection);
+                    var ray = new Ray(transform.position + (Vector3.up * eyeHeight), targetDirection);
                     RaycastHit hitInfo;
                     if (Physics.Raycast(ray, out hitInfo, sightDistance, detectionLayers))
                     {

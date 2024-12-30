@@ -55,9 +55,9 @@ public class PlayerWeapon : WeaponBase
         SoundManager.Instance.PlayShootingSound(weaponModel);
 
         readyToShoot = false;
-        Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
+        var shootingDirection = CalculateDirectionAndSpread().normalized;
 
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
         bullet.transform.forward = shootingDirection;
 
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
@@ -102,7 +102,7 @@ public class PlayerWeapon : WeaponBase
 
     public Vector3 CalculateDirectionAndSpread()
     {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         Vector3 targetPoint;
 
@@ -115,9 +115,9 @@ public class PlayerWeapon : WeaponBase
             targetPoint = ray.GetPoint(100);
         }
 
-        Vector3 direction = targetPoint - bulletSpawn.position;
-        float x = Random.Range(-spreadIntensity, spreadIntensity);
-        float y = Random.Range(-spreadIntensity, spreadIntensity);
+        var direction = targetPoint - bulletSpawn.position;
+        var x = Random.Range(-spreadIntensity, spreadIntensity);
+        var y = Random.Range(-spreadIntensity, spreadIntensity);
 
         return direction + new Vector3(x, y, 0);
     }
@@ -131,7 +131,7 @@ public class PlayerWeapon : WeaponBase
 
         SoundManager.Instance.PlayShootingSound(weaponModel);
 
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
     }

@@ -11,7 +11,7 @@ public class WeaponPickUpHandTracker : HandTracker
 
     void Awake()
     {
-        requiredStableTime = 1.5f;
+        requiredStableTime = 2.5f;
     }
 
     public override int HandleGesture()
@@ -24,7 +24,7 @@ public class WeaponPickUpHandTracker : HandTracker
 
         if (hand0 == null && hand1 == null) return -1;
 
-        var activeHand = (hand0 != null) ? hand0 : hand1;
+        var activeHand = hand0 ?? hand1;
 
         var numFingers = CountFingers(activeHand);
         return numFingers;

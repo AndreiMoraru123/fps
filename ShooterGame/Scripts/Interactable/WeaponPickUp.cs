@@ -7,12 +7,12 @@ using SimpleJSON;
 public class WeaponPickUp : Interactable
 {
     [SerializeField]
-    private string[] requiredSequence;
+    private string requiredGesture;
 
     [SerializeField]
-    private float sequenceTimeout = 5f; // time allowed between gestures
+    private float sequenceTimeout = 2f; // time allowed between gestures
     private WeaponPickUpHandTracker handTracker;
-    private List<string> currentSequence = new List<string>();
+    private string shownGesture;
     private float lastGestureTime;
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class WeaponPickUp : Interactable
     // Update is called once per frame
     void Update()
     {
-        if (currentSequence.Count > 0 && Time.time - lastGestureTime > sequenceTimeout)
+        if (Time.time - lastGestureTime > sequenceTimeout)
         {
             ResetSequence();
         }
@@ -44,31 +44,12 @@ public class WeaponPickUp : Interactable
 
     private void UpdatePromptMessage(bool showProgress = false)
     {
-        string message = "Pick Up: ";
-        for (int i = 0; i < requiredSequence.Length; i++)
+        string message = $"Pick up <color=red>{requiredGesture}</color>";
+        if (showProgress && handTracker.GestureToString(handTracker.CurrentGesture) == requiredGesture)
         {
-            if (i > 0) message += "-";
-            if (i < currentSequence.Count)
-            {
-                message += $"<color=green>{requiredSequence[i]}</color>";
-            }
-            else if (i == currentSequence.Count)
-            {
-                if (showProgress && handTracker.GestureToString(handTracker.CurrentGesture) == requiredSequence[i])
-                {
-                    float progress = handTracker.StabilityProgress;
-                    string colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
-                    message += $"<color=#{colorHex}>{requiredSequence[i]}</color>";
-                }
-                else
-                {
-                    message += $"<color=red>{requiredSequence[i]}</color>";
-                }
-            }
-            else
-            {
-                message += requiredSequence[i].ToString();
-            }
+            float progress = handTracker.StabilityProgress;
+            string colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
+            message = $"Pick up <color=#{colorHex}>{requiredGesture}</color>";
         }
         promptMessage = message;
     }
@@ -78,45 +59,37 @@ public class WeaponPickUp : Interactable
         switch (gesture)
         {
             case 0:
-                currentSequence.Add("fist");
+                shownGesture = "fist";
                 lastGestureTime = Time.time;
                 break;
             case 5:
-                currentSequence.Add("palm");
+                shownGesture = "palm";
                 lastGestureTime = Time.time;
                 break;
             default:
                 return;
         }
 
-        bool isValidSoFar = true;
-        for (int i = 0; i < currentSequence.Count && i < requiredSequence.Length; i++)
+        bool isValid = true;
+        if (shownGesture != requiredGesture)
         {
-            if (currentSequence[i] != requiredSequence[i])
-            {
-                isValidSoFar = false;
-                break;
-            }
+            isValid = false;
         }
 
-        if (!isValidSoFar)
+        if (!isValid)
         {
             ResetSequence();
             return;
         }
 
         UpdatePromptMessage();
-
-        if (currentSequence.Count == requiredSequence.Length)
-        {
-            Interact();
-            ResetSequence();
-        }
+        Interact();
+        ResetSequence();
     }
 
     private void ResetSequence()
     {
-        currentSequence.Clear();
+        shownGesture = null;
         lastGestureTime = 0f;
         UpdatePromptMessage();
     }
@@ -125,7 +98,7 @@ public class WeaponPickUp : Interactable
     {
         var number = handTracker.HandleGesture();
         var gesture = handTracker.GestureToString(number);
-        return currentSequence.Count < requiredSequence.Length && gesture == requiredSequence[currentSequence.Count];
+        return gesture == requiredGesture;
     }
 
     protected override void Interact()
@@ -137,11 +110,6 @@ public class WeaponPickUp : Interactable
             WeaponManager.Instance.PickupWeapon(hoveredWeapon.gameObject);
             InteractionManager.Instance.hoveredWeapon = null;
         }
-    }
-
-    public bool IsReadyForPickup()
-    {
-        return currentSequence.Count == requiredSequence.Length;
     }
 
 }

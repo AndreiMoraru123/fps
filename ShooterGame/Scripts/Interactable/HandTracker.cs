@@ -29,9 +29,9 @@ public abstract class HandTracker : MonoBehaviour
         switch (gesture)
         {
             case 0:
-                return "palm";
-            case 5:
                 return "fist";
+            case 5:
+                return "palm";
             default:
                 return "invalid";
         }

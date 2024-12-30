@@ -11,7 +11,7 @@ public class WeaponPickUpHandTracker : HandTracker
 
     void Awake()
     {
-        requiredStableTime = 0.1f;
+        requiredStableTime = 1.5f;
     }
 
     public override int HandleGesture()

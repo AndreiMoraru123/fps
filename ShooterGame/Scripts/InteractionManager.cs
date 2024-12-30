@@ -33,7 +33,7 @@ public class InteractionManager : MonoBehaviour
 
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
 
-                if (pickUp != null && pickUp.ValidateInteraction() && pickUp.IsReadyForPickup())
+                if (pickUp != null && pickUp.ValidateInteraction())
                 {
                     pickUp.BaseInteract();
                 }

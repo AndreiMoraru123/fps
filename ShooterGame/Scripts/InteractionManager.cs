@@ -6,6 +6,7 @@ public class InteractionManager : MonoBehaviour
 {
     public static InteractionManager Instance { get; set; }
     public PlayerWeapon hoveredWeapon = null;
+    public Ammo hoveredAmmo = null;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,7 +44,30 @@ public class InteractionManager : MonoBehaviour
                 if (hoveredWeapon)
                 {
                     hoveredWeapon.GetComponent<Outline>().enabled = false;
-                    hoveredWeapon = null;
+                    // hoveredWeapon = null;
+                }
+            }
+
+            // Ammo
+            if (objectHit.GetComponent<Ammo>())
+            {
+                hoveredAmmo = objectHit.gameObject.GetComponent<Ammo>();
+                var pickUp = objectHit.GetComponent<AmmoPickUp>();
+
+                hoveredAmmo.GetComponent<Outline>().enabled = true;
+
+                if (pickUp != null && pickUp.ValidateInteraction())
+                {
+                    pickUp.BaseInteract();
+                    Destroy(objectHit.gameObject);
+                }
+            }
+            else
+            {
+                if (hoveredAmmo)
+                {
+                    hoveredAmmo.GetComponent<Outline>().enabled = false;
+                    hoveredAmmo = null;
                 }
             }
         }
@@ -53,6 +77,11 @@ public class InteractionManager : MonoBehaviour
             {
                 hoveredWeapon.GetComponent<Outline>().enabled = false;
                 hoveredWeapon = null;
+            }
+            if (hoveredAmmo)
+            {
+                hoveredAmmo.GetComponent<Outline>().enabled = false;
+                hoveredAmmo = null;
             }
         }
     }

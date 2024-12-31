@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public enum ShootingMode
@@ -90,7 +89,14 @@ public class PlayerWeapon : WeaponBase
 
     private void ReloadCompleted()
     {
-        bulletsLeft = magazineSize;
+        var bulletsNeeded = magazineSize - bulletsLeft;
+        var availableAmmo = WeaponManager.Instance.CheckAmmoLeft(weaponModel);
+        var bulletsToReload = Mathf.Min(bulletsNeeded, availableAmmo);
+
+        bulletsLeft += bulletsToReload;
+
+        WeaponManager.Instance.DecreaseTotalAmmo(bulletsToReload, weaponModel);
+
         isReloading = false;
     }
 
@@ -157,7 +163,7 @@ public class PlayerWeapon : WeaponBase
                 isShooting = Input.GetKeyDown(KeyCode.Mouse0);
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false)
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && WeaponManager.Instance.CheckAmmoLeft(weaponModel) > 0)
             {
                 Reload();
             }
@@ -165,7 +171,7 @@ public class PlayerWeapon : WeaponBase
             // automatic reload when the magazine is empty
             if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
             {
-                Reload();
+                // Reload();
             }
 
             if (readyToShoot && isShooting && bulletsLeft > 0)
@@ -175,4 +181,5 @@ public class PlayerWeapon : WeaponBase
             }
         }
     }
+
 }

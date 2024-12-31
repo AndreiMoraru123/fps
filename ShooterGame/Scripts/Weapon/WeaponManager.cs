@@ -8,6 +8,11 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager Instance { get; set; }
     public List<GameObject> weaponSlots;
     public GameObject activeWeaponSlot;
+
+    [Header("Ammo")]
+    public int totalM1911Ammo = 0;
+    public int totalAK47Ammo = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,6 +57,19 @@ public class WeaponManager : MonoBehaviour
     public void PickupWeapon(GameObject weapon)
     {
         AddWeaponIntoActiveSlot(weapon);
+    }
+
+    public void PickupAmmo(Ammo ammo)
+    {
+        switch (ammo.ammoType)
+        {
+            case AmmoType.M1911Ammo:
+                totalM1911Ammo += ammo.ammoAmount;
+                break;
+            case AmmoType.AK47Ammo:
+                totalAK47Ammo += ammo.ammoAmount;
+                break;
+        }
     }
 
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
@@ -99,5 +117,28 @@ public class WeaponManager : MonoBehaviour
             var newWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<PlayerWeapon>();
             newWeapon.isActiveWeapon = true;
         }
+    }
+
+    internal void DecreaseTotalAmmo(int bulletsToDecrease, WeaponModel weaponModel)
+    {
+        switch (weaponModel)
+        {
+            case WeaponModel.M1911:
+                totalM1911Ammo -= bulletsToDecrease;
+                break;
+            case WeaponModel.AK47:
+                totalAK47Ammo -= bulletsToDecrease;
+                break;
+        }
+    }
+
+    public int CheckAmmoLeft(WeaponModel weaponModel)
+    {
+        return weaponModel switch
+        {
+            WeaponModel.M1911 => totalM1911Ammo,
+            WeaponModel.AK47 => totalAK47Ammo,
+            _ => 0,
+        };
     }
 }

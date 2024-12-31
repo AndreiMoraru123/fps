@@ -30,9 +30,9 @@ public class HandTracker : MonoBehaviour
     {
         return gesture switch
         {
-            0 => "fist",
-            5 => "palm",
-            _ => "invalid",
+            0 => "FIST",
+            5 => "PALM",
+            _ => "INVALID",
         };
 
     }

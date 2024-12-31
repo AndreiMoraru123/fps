@@ -98,8 +98,8 @@ GameObject:
   - component: {fileID: 1437380555601718977}
   - component: {fileID: 1372716237216306017}
   - component: {fileID: 1372716237216306018}
-  - component: {fileID: 71573649991269799}
   - component: {fileID: 71573649991269800}
+  - component: {fileID: 422647461}
   m_Layer: 3
   m_Name: AK74
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 1405245847981275807}
   m_LocalRotation: {x: 0.6029338, y: 0.5961208, z: 0.36427188, w: 0.38524908}
   m_LocalPosition: {x: 6, y: 1.1, z: 26.460007}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.5000004, y: 1.5, z: 1.5000001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1410867973657761389}
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05022e80390141243bc417bd176e8df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3717119482322358079, guid: 6d66d87c595cc1e4fb13009c8f7c7ea5,
+  bulletPrefab: {fileID: 3717119482322358079, guid: 85a77a70887c698459b3150a71091523,
     type: 3}
   bulletSpawn: {fileID: 1406573030770471261}
   bulletVelocity: 700
@@ -200,7 +200,8 @@ MonoBehaviour:
   shootingDelay: 0.15
   bulletsPerBurst: 1
   burstBulletsLeft: 0
-  spreadIntensity: 0.1
+  hipSpreadIntensity: 0.6
+  adsSpreadIntensity: 0.06
   muzzleEffect: {fileID: 1406573030999600078}
   reloadTime: 2
   magazineSize: 30
@@ -262,20 +263,6 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &71573649991269799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405245847981275807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbcfba04e0eefe249a0a20bf20b9d76c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  requiredStableTime: 0.5
-  handTracking: {fileID: 0}
 --- !u!114 &71573649991269800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,9 +277,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Pick Up AK47
-  requiredSequence:
-  - fist
-  sequenceTimeout: 1
+  requiredGesture: FIST
+  sequenceTimeout: 2
+--- !u!114 &422647461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405245847981275807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handTracking: {fileID: 0}
+  requiredStableTime: 2.5
 --- !u!1 &1405565093433214747
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406573030770471262}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.43}
+  m_LocalPosition: {x: 0.0143, y: -0.02, z: -0.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

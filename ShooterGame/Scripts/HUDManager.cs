@@ -24,6 +24,8 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI tacticalAmountUI;
     public Sprite emptySlot;
 
+    public GameObject crosshair;
+
     public static HUDManager Instance { get; set; }
     private void Awake()
     {

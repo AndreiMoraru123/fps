@@ -43,12 +43,12 @@ public class AmmoPickUp : Interactable
 
     private void UpdatePromptMessage(bool showProgress = false)
     {
-        var message = $"Pick up: <color=red>{requiredGesture}</color>";
+        var message = $"Pick up {gameObject.name}: <color=red>{requiredGesture}</color>";
         if (showProgress && handTracker.NumberToString(handTracker.CurrentGesture) == requiredGesture)
         {
             var progress = handTracker.StabilityProgress;
             var colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
-            message = $"Pick up: <color=#{colorHex}>{requiredGesture}</color>";
+            message = $"Pick up {gameObject.name}: <color=#{colorHex}>{requiredGesture}</color>";
         }
         promptMessage = message;
     }

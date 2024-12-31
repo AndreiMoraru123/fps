@@ -15,17 +15,23 @@ public class PlayerWeapon : WeaponBase
 {
     public bool isActiveWeapon;
 
+    [Header("Shooting")]
     public bool isShooting, readyToShoot;
     private bool allowReset = true;
     public float shootingDelay = 2f;
+
+    [Header("Burst")]
     public int bulletsPerBurst = 3;
     public int burstBulletsLeft;
-    public float spreadIntensity;
+
+    [Header("Spread")]
+    public float hipSpreadIntensity;
+    public float adsSpreadIntensity;
 
     public GameObject muzzleEffect;
     internal Animator animator;
 
-    // Reloading
+    [Header("Reloading")]
     public float reloadTime;
     public int magazineSize, bulletsLeft;
     public bool isReloading;
@@ -35,6 +41,9 @@ public class PlayerWeapon : WeaponBase
     public ShootingMode currentShootingMode;
     public WeaponModel weaponModel;
 
+    private bool isADS;
+    private float spreadIntensity;
+
     public void Awake()
     {
         readyToShoot = true;
@@ -42,24 +51,35 @@ public class PlayerWeapon : WeaponBase
         animator = GetComponent<Animator>();
 
         bulletsLeft = magazineSize;
+
+        spreadIntensity = hipSpreadIntensity;
     }
 
     private void DelayedFire()
     {
         bulletsLeft--;
-
         muzzleEffect.GetComponent<ParticleSystem>().Play();
-        animator.SetTrigger("RECOIL");
+
+        if (isADS)
+        {
+            animator.SetTrigger("RECOIL_ADS");
+        }
+        else
+        {
+
+            animator.SetTrigger("RECOIL");
+        }
 
         SoundManager.Instance.PlayShootingSound(weaponModel);
-
         readyToShoot = false;
+
         var shootingDirection = CalculateDirectionAndSpread().normalized;
+        var bulletRotation = Quaternion.LookRotation(shootingDirection);
+        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletRotation);
 
-        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
         bullet.transform.forward = shootingDirection;
+        bullet.GetComponent<Rigidbody>().velocity = shootingDirection * bulletVelocity;
 
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
 
         if (allowReset)
@@ -122,10 +142,10 @@ public class PlayerWeapon : WeaponBase
         }
 
         var direction = targetPoint - bulletSpawn.position;
-        var x = Random.Range(-spreadIntensity, spreadIntensity);
+        var z = Random.Range(-spreadIntensity, spreadIntensity);
         var y = Random.Range(-spreadIntensity, spreadIntensity);
 
-        return direction + new Vector3(x, y, 0);
+        return direction + new Vector3(0, y, z);
     }
 
     // TODO: Will I ever use this?
@@ -133,7 +153,16 @@ public class PlayerWeapon : WeaponBase
     {
         // Fire with no restrictions
         muzzleEffect.GetComponent<ParticleSystem>().Play();
-        animator.SetTrigger("RECOIL");
+
+        if (isADS)
+        {
+            animator.SetTrigger("RECOIL_ADS");
+        }
+        else
+        {
+
+            animator.SetTrigger("RECOIL");
+        }
 
         SoundManager.Instance.PlayShootingSound(weaponModel);
 
@@ -146,6 +175,16 @@ public class PlayerWeapon : WeaponBase
     {
         if (isActiveWeapon)
         {
+            // Right mouse button for ADS
+            if (Input.GetMouseButtonDown(1))
+            {
+                EnterADS();
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                ExitADS();
+            }
+
             GetComponent<Outline>().enabled = false;
 
             if (bulletsLeft == 0 && isShooting)
@@ -180,6 +219,22 @@ public class PlayerWeapon : WeaponBase
                 DelayedFire();
             }
         }
+    }
+
+    private void EnterADS()
+    {
+        animator.SetTrigger("enterADS");
+        isADS = true;
+        HUDManager.Instance.crosshair.SetActive(false);
+        spreadIntensity = adsSpreadIntensity;
+    }
+
+    private void ExitADS()
+    {
+        animator.SetTrigger("exitADS");
+        isADS = false;
+        HUDManager.Instance.crosshair.SetActive(true);
+        spreadIntensity = hipSpreadIntensity;
     }
 
 }

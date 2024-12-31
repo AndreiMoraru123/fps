@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
-    [Header("Weapon Settings")]
+    [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public float bulletVelocity = 30f;
@@ -28,15 +28,17 @@ public class WeaponBase : MonoBehaviour
     {
         if (!CanShoot()) return;
 
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
-
         if (accuracy != 0f)
         {
             targetDirection = Quaternion.AngleAxis(Random.Range(-accuracy, accuracy), Vector3.up) * targetDirection;
         }
 
+        var bulletRotation = Quaternion.LookRotation(targetDirection);
+        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletRotation);
+
         var bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.velocity = targetDirection * bulletVelocity;
+
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
         lastShotTime = Time.time;
     }

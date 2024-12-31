@@ -49,7 +49,7 @@ public class HandTracker : MonoBehaviour
     public int CurrentGesture => lastRecognizedGesture;
     public int CountFingersOnHand()
     {
-        try
+        if (handTracking != null)
         {
             if (string.IsNullOrEmpty(handTracking.ubHandTrackingResults)) return -1;
 
@@ -63,9 +63,8 @@ public class HandTracker : MonoBehaviour
 
             return CountFingers(activeHand);
         }
-        catch // Throwables
+        else // Throwables
         {
-            print("Caught!");
             return -1;
         }
 

@@ -75,7 +75,8 @@ public class PlayerWeapon : WeaponBase
 
         var shootingDirection = CalculateDirectionAndSpread().normalized;
         var bulletRotation = Quaternion.LookRotation(shootingDirection);
-        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletRotation);
+        var bulletSpawnPosition = bulletSpawn.position + (shootingDirection * spawnOffset);
+        var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
 
         bullet.transform.forward = shootingDirection;
         bullet.GetComponent<Rigidbody>().velocity = shootingDirection * bulletVelocity;

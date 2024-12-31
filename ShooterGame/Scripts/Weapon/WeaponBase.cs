@@ -6,6 +6,7 @@ public class WeaponBase : MonoBehaviour
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+    public float spawnOffset = 1.5f;
     public float bulletVelocity = 30f;
     public float bulletPrefabLifetime = 3f;
     public float fireRate = 0.5f;
@@ -15,7 +16,7 @@ public class WeaponBase : MonoBehaviour
     {
         if (bulletPrefab == null)
         {
-            bulletPrefab = Resources.Load("Prefabs/Bullet") as GameObject;
+            bulletPrefab = Resources.Load("Prefabs/BulletShell") as GameObject;
         }
     }
 
@@ -34,7 +35,8 @@ public class WeaponBase : MonoBehaviour
         }
 
         var bulletRotation = Quaternion.LookRotation(targetDirection);
-        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletRotation);
+        var bulletSpawnPosition = bulletSpawn.position + (targetDirection * spawnOffset);
+        var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
 
         var bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.velocity = targetDirection * bulletVelocity;

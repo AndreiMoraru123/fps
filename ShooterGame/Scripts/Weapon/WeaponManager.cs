@@ -13,6 +13,14 @@ public class WeaponManager : MonoBehaviour
     public int totalM1911Ammo = 0;
     public int totalAK47Ammo = 0;
 
+    [Header("Throwables")]
+    public int grenades = 0;
+    public float throwForce = 10f;
+    public GameObject grenadePrefab;
+    public GameObject throwableSpawn;
+    public float forceMultiplier = 0f;
+    public float forceMultiplierLimit = 2f;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,7 +60,40 @@ public class WeaponManager : MonoBehaviour
         {
             SwitchActiveSlot(1);
         }
+
+        if (Input.GetKey(KeyCode.G))
+        {
+            forceMultiplier += Time.deltaTime;
+            if (forceMultiplier > forceMultiplierLimit)
+            {
+                forceMultiplier = forceMultiplierLimit;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            if (grenades > 0)
+            {
+                ThrowLethal();
+            }
+
+            forceMultiplier = 0f;
+        }
     }
+
+    private void ThrowLethal()
+    {
+        var lethalPrefab = grenadePrefab;
+        var throwable = Instantiate(lethalPrefab, throwableSpawn.transform.position, Camera.main.transform.rotation);
+        var rb = throwable.GetComponent<Rigidbody>();
+
+        rb.AddForce(Camera.main.transform.forward * (throwForce * forceMultiplier), ForceMode.Impulse);
+        throwable.GetComponent<Throwable>().hasBeenThrown = true;
+
+        grenades--;
+        HUDManager.Instance.UpdateThrowables(ThrowableType.Grenade);
+    }
+
 
     public void PickupWeapon(GameObject weapon)
     {
@@ -71,6 +112,23 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
+
+    public void PickUpThrowable(Throwable throwable)
+    {
+        switch (throwable.throwableType)
+        {
+            case ThrowableType.Grenade:
+                PickUpGrenade();
+                break;
+        }
+    }
+
+    private void PickUpGrenade()
+    {
+        grenades++;
+        HUDManager.Instance.UpdateThrowables(ThrowableType.Grenade);
+    }
+
 
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {

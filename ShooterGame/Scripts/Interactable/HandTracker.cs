@@ -49,18 +49,25 @@ public class HandTracker : MonoBehaviour
     public int CurrentGesture => lastRecognizedGesture;
     public int CountFingersOnHand()
     {
-        if (string.IsNullOrEmpty(handTracking.ubHandTrackingResults)) return -1;
+        try
+        {
+            if (string.IsNullOrEmpty(handTracking.ubHandTrackingResults)) return -1;
 
-        var json = JSON.Parse(handTracking.ubHandTrackingResults);
-        var hand0 = json["hand_0"];
-        var hand1 = json["hand_1"];
+            var json = JSON.Parse(handTracking.ubHandTrackingResults);
+            var hand0 = json["hand_0"];
+            var hand1 = json["hand_1"];
 
-        if (hand0 == null && hand1 == null) return -1;
+            if (hand0 == null && hand1 == null) return -1;
 
-        var activeHand = hand0 ?? hand1;
+            var activeHand = hand0 ?? hand1;
 
-        var numFingers = CountFingers(activeHand);
-        return numFingers;
+            return CountFingers(activeHand);
+        }
+        catch // Throwables
+        {
+            print("Caught!");
+            return -1;
+        }
 
     }
     public bool TryGetStableGesture(out int number)

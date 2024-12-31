@@ -58,11 +58,11 @@ public class AmmoPickUp : Interactable
         switch (gesture)
         {
             case 0:
-                shownGesture = "fist";
+                shownGesture = "FIST";
                 lastGestureTime = Time.time;
                 break;
             case 5:
-                shownGesture = "palm";
+                shownGesture = "PALM";
                 lastGestureTime = Time.time;
                 break;
             default:

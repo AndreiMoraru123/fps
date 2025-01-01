@@ -5,76 +5,28 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private StateMachine stateMachine;
-    private NavMeshAgent agent;
-    private GameObject player;
-    private Vector3 lastKnownPos;
-    public NavMeshAgent Agent { get => agent; }
-    public GameObject Player { get => player; }
-    public Vector3 LastKnownPos { get => lastKnownPos; set => lastKnownPos = value; }
-
-    public Path path;
-
-    [Header("Sight Values")]
-    public float sightDistance = 20f;
-    public float fieldOfView = 85f;
-    public float eyeHeight = 1f;
-    public LayerMask detectionLayers;
-
-    [Header("Weapon Values")]
-    public Transform gunBarrel;
-    [Range(0.1f, 10f)]
-    public float fireRate;
-
     [SerializeField]
-    private string currentState;
+    protected int HP = 100;
+    protected Animator animator;
+    protected NavMeshAgent agent;
+    public NavMeshAgent Agent { get => agent; }
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        stateMachine = GetComponent<StateMachine>();
-        agent = GetComponent<NavMeshAgent>();
-        stateMachine.Initialize();
-        player = GameObject.FindGameObjectWithTag("Player");
-        // include everything but the weapon layer
-        detectionLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Weapon"));
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void TakeDamage(int amount)
     {
-        CanSeePlayer();
-        currentState = stateMachine.activeState.ToString();
-    }
-
-    public bool CanSeePlayer()
-    {
-        if (player != null)
+        HP -= amount;
+        if (HP <= 0)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < sightDistance)
-            {
-                Vector3 targetDirection = player.transform.position - transform.position - (Vector3.up * eyeHeight);
-                float angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
-                if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
-                {
-                    var ray = new Ray(transform.position + (Vector3.up * eyeHeight), targetDirection);
-                    RaycastHit hitInfo;
-                    if (Physics.Raycast(ray, out hitInfo, sightDistance, detectionLayers))
-                    {
-                        if (hitInfo.transform.gameObject == player)
-                        {
-                            Debug.DrawRay(ray.origin, ray.direction * sightDistance, Color.green);
-                            lastKnownPos = player.transform.position;
-                            return true;
-                        }
-                        else
-                        {
-                            Debug.DrawRay(ray.origin, ray.direction * sightDistance, Color.red);
-                        }
-                    }
-                }
-            }
+            animator.SetTrigger("DIE");
+            Destroy(gameObject);
         }
-        return false;
+        else
+        {
+            animator.SetTrigger("DAMAGE");
+        }
     }
 }

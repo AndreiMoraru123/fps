@@ -42,7 +42,7 @@ public class StateMachine : MonoBehaviour
         {
             // set-up the new state
             activeState.stateMachine = this;
-            activeState.enemy = GetComponent<Enemy>();
+            activeState.enemy = GetComponent<ArmedEnemy>();
             activeState.Enter();
         }
     }

@@ -126,6 +126,7 @@ public class Keypad : Interactable
     protected override void Interact()
     {
         doorOpen = !doorOpen;
+        print($"door open status: {doorOpen}");
         door.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
     }
 

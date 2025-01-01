@@ -78,6 +78,9 @@ public class PlayerWeapon : WeaponBase
         var bulletSpawnPosition = bulletSpawn.position + (shootingDirection * spawnOffset);
         var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
 
+        var bul = bullet.GetComponent<Bullet>();
+        bul.bulletDamage = weaponDamage;
+
         bullet.transform.forward = shootingDirection;
         bullet.GetComponent<Rigidbody>().velocity = shootingDirection * bulletVelocity;
 
@@ -169,6 +172,10 @@ public class PlayerWeapon : WeaponBase
 
         var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);
+
+        var bul = bullet.GetComponent<Bullet>();
+        bul.bulletDamage = weaponDamage;
+
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
     }
 
@@ -176,6 +183,12 @@ public class PlayerWeapon : WeaponBase
     {
         if (isActiveWeapon)
         {
+            foreach (Transform child in transform)
+            {
+                // TODO: Choose a layer only for the weapon UI instead
+                // child.gameObject.layer = LayerMask.NameToLayer("WeaponRender");
+            }
+
             // Right mouse button for ADS
             if (Input.GetMouseButtonDown(1))
             {
@@ -208,7 +221,7 @@ public class PlayerWeapon : WeaponBase
                 Reload();
             }
 
-            // automatic reload when the magazine is empty
+            // [Disabled] automatic reload when the magazine is empty
             if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
             {
                 // Reload();
@@ -218,6 +231,14 @@ public class PlayerWeapon : WeaponBase
             {
                 burstBulletsLeft = bulletsPerBurst;
                 DelayedFire();
+            }
+        }
+        else
+        {
+            foreach (Transform child in transform)
+            {
+                // TODO: Switch back to the layer needed for picking up
+                // child.gameObject.layer = LayerMask.NameToLayer("Weapon");
             }
         }
     }

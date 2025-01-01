@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
+    public int weaponDamage;
+
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;

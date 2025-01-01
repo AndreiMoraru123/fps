@@ -3,7 +3,9 @@ using UnityEngine;
 
 public enum ThrowableType
 {
-    Grenade
+    None,
+    Grenade,
+    Smoke
 }
 
 public class Throwable : MonoBehaviour
@@ -53,6 +55,31 @@ public class Throwable : MonoBehaviour
             case ThrowableType.Grenade:
                 GrenadeEffect();
                 break;
+            case ThrowableType.Smoke:
+                SmokeEffect();
+                break;
+        }
+    }
+
+    private void SmokeEffect()
+    {
+        // Visual Effect
+        var smokeEffect = GlobalReferences.Instance.smokeGrenadeEffect;
+        Instantiate(smokeEffect, transform.position, transform.rotation);
+
+        // Sound Effect
+        SoundManager.Instance.throwablesChannel.PlayOneShot(SoundManager.Instance.grenadeSound);
+
+        // Physical Effect
+        var colliders = Physics.OverlapSphere(transform.position, damageRadius);
+        foreach (var objectInRange in colliders)
+        {
+            var rb = objectInRange.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                // TODO: apply blindness to enemies
+            }
+
         }
     }
 
@@ -61,6 +88,9 @@ public class Throwable : MonoBehaviour
         // Visual Effect
         var explosionEffect = GlobalReferences.Instance.grenadeExplosionEffect;
         Instantiate(explosionEffect, transform.position, transform.rotation);
+
+        // Sound Effect
+        SoundManager.Instance.throwablesChannel.PlayOneShot(SoundManager.Instance.grenadeSound);
 
         // Physical Effect
         var colliders = Physics.OverlapSphere(transform.position, damageRadius);
@@ -72,7 +102,7 @@ public class Throwable : MonoBehaviour
                 rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
             }
 
-            // TODO: apply damage to enemy
+            // TODO: apply damage to enemies
         }
     }
 }

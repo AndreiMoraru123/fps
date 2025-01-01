@@ -7,12 +7,17 @@ public class SoundManager : MonoBehaviour
     // Singleton pattern
     public static SoundManager Instance { get; set; }
     public AudioSource ShootingChannel;
+
     public AudioClip M1911Shot;
     public AudioClip AK47Shot;
+
     public AudioSource reloadingSoundAK47;
     public AudioSource reloadingSoundM1911;
 
     public AudioSource emptyMagazineSoundM1911;
+
+    public AudioSource throwablesChannel;
+    public AudioClip grenadeSound;
 
     private void Awake()
     {

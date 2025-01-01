@@ -83,7 +83,6 @@ public class InteractionManager : MonoBehaviour
                 if (pickUp != null && pickUp.ValidateInteraction())
                 {
                     pickUp.BaseInteract();
-                    Destroy(objectHit.gameObject);
                 }
             }
             else

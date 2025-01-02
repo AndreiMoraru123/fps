@@ -65,6 +65,16 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+
+        if (health <= 0)
+        {
+            print("player dead");
+        }
+        else
+        {
+            print("player hit");
+        }
+
         lerpTimer = 0f;
     }
 
@@ -72,5 +82,13 @@ public class PlayerHealth : MonoBehaviour
     {
         health += healAmount;
         lerpTimer = 0f;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("XBotAttackHand"))
+        {
+            TakeDamage(other.gameObject.GetComponent<XBotHand>().damage);
+        }
     }
 }

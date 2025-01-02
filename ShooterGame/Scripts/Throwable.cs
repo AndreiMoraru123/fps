@@ -104,7 +104,7 @@ public class Throwable : MonoBehaviour
 
             if (objectInRange.gameObject.TryGetComponent(out Enemy enemy))
             {
-                // TODO: Don't hardcode this
+                // TODO: Do I want to hard code this?
                 enemy.TakeDamage(100);
             }
         }

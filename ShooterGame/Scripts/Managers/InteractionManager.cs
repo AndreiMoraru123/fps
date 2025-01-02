@@ -30,6 +30,12 @@ public class InteractionManager : MonoBehaviour
             var objectHit = hit.transform.gameObject;
             if (objectHit.GetComponent<PlayerWeapon>() && objectHit.GetComponent<PlayerWeapon>().isActiveWeapon == false)
             {
+                // disable the outline of previously selected item
+                if (hoveredWeapon)
+                {
+                    hoveredWeapon.GetComponent<Outline>().enabled = false;
+                }
+
                 hoveredWeapon = objectHit.gameObject.GetComponent<PlayerWeapon>();
                 var pickUp = objectHit.GetComponent<WeaponPickUp>();
 
@@ -52,6 +58,12 @@ public class InteractionManager : MonoBehaviour
             // Ammo
             if (objectHit.GetComponent<Ammo>())
             {
+                // disable the outline of previously selected item
+                if (hoveredAmmo)
+                {
+                    hoveredAmmo.GetComponent<Outline>().enabled = false;
+                }
+
                 hoveredAmmo = objectHit.gameObject.GetComponent<Ammo>();
                 var pickUp = objectHit.GetComponent<AmmoPickUp>();
 
@@ -75,6 +87,11 @@ public class InteractionManager : MonoBehaviour
             // Throwable
             if (objectHit.GetComponent<Throwable>())
             {
+                if (hoveredThrowable)
+                {
+                    hoveredThrowable.GetComponent<Outline>().enabled = false;
+                }
+
                 hoveredThrowable = objectHit.gameObject.GetComponent<Throwable>();
                 var pickUp = objectHit.GetComponent<ThrowablePickUp>();
 
@@ -92,25 +109,6 @@ public class InteractionManager : MonoBehaviour
                     hoveredThrowable.GetComponent<Outline>().enabled = false;
                     hoveredThrowable = null;
                 }
-            }
-        }
-        // destroy outline for good
-        else
-        {
-            if (hoveredWeapon)
-            {
-                hoveredWeapon.GetComponent<Outline>().enabled = false;
-                hoveredWeapon = null;
-            }
-            if (hoveredAmmo)
-            {
-                hoveredAmmo.GetComponent<Outline>().enabled = false;
-                hoveredAmmo = null;
-            }
-            if (hoveredThrowable)
-            {
-                hoveredThrowable.GetComponent<Outline>().enabled = false;
-                hoveredThrowable = null;
             }
         }
     }

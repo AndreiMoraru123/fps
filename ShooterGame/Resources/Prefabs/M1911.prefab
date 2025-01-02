@@ -346,8 +346,8 @@ MonoBehaviour:
   shootingDelay: 0.3
   bulletsPerBurst: 1
   burstBulletsLeft: 0
-  hipSpreadIntensity: 0.4
-  adsSpreadIntensity: 0.04
+  hipSpreadIntensity: 0.1
+  adsSpreadIntensity: 0.01
   muzzleEffect: {fileID: 8740692096684977670}
   reloadTime: 1.5
   magazineSize: 7

@@ -22292,6 +22292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100
+  isDead: 0
   path: {fileID: 2047207338}
   sightDistance: 20
   fieldOfView: 85
@@ -28736,6 +28737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100
+  isDead: 0
   xBotHand: {fileID: 1333729829}
   xBotDamage: 10
 --- !u!95 &1530615322
@@ -34579,6 +34581,8 @@ MonoBehaviour:
   grenadeExplosionEffect: {fileID: 100006, guid: 4575df893a6e3f64a8283dee38413a34,
     type: 3}
   smokeGrenadeEffect: {fileID: 100000, guid: 4ecfa3d3919108f4fbff80d1c4d920a1, type: 3}
+  bloodSprayEffect: {fileID: 8941186713391461686, guid: 80cb8f44fac817844931c711777c19f1,
+    type: 3}
 --- !u!1 &1893806144
 GameObject:
   m_ObjectHideFlags: 0
@@ -40781,6 +40785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100
+  isDead: 0
   xBotHand: {fileID: 1333729829}
   xBotDamage: 0
 --- !u!4 &5901452234838088451

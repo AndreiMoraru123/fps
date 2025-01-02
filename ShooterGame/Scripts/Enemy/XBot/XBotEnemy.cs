@@ -33,6 +33,7 @@ public class XBotEnemy : Enemy
             {
                 animator.SetTrigger("DIE2");
             }
+            isDead = true;
         }
         else
         {

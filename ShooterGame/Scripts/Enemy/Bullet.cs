@@ -12,7 +12,11 @@ public class Bullet : MonoBehaviour
 
         if (hitTransform.CompareTag("Player"))
         {
-            hitTransform.GetComponent<PlayerHealth>().TakeDamage(10);
+            var player = hitTransform.GetComponent<PlayerHealth>();
+            if (player.isDead == false)
+            {
+                player.TakeDamage(10);
+            }
         }
 
         if (hitTransform.CompareTag("Target"))

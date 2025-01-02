@@ -10,12 +10,11 @@ public class XBotEnemy : Enemy
 
     void Start()
     {
-        if (xBotHand == null)
+        xBotHand = GetComponent<XBotHand>();
+        if (xBotHand != null)
         {
-            xBotHand = GetComponent<XBotHand>();
+            xBotHand.damage = xBotDamage;
         }
-
-        xBotHand.damage = xBotDamage;
         agent = GetComponent<NavMeshAgent>();
     }
 

@@ -75,4 +75,13 @@ public class ArmedEnemy : Enemy
         }
         return false;
     }
+
+    public override void TakeDamage(int amount)
+    {
+        HP -= amount;
+        if (HP <= 0)
+        {
+            isDead = true;
+        }
+    }
 }

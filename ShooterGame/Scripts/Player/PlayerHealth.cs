@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,37 +8,33 @@ public class PlayerHealth : MonoBehaviour
 {
     private float health;
     private float lerpTimer;
-
-    [SerializeField]
+    public bool isDead;
     public float maxHealth = 100f;
-
-    [SerializeField]
     public float chipSpeed = 2f;
-
-    [SerializeField]
     public Image frontHealthBar;
-
-    [SerializeField]
     public Image backHealthBar;
+    public GameObject bloodyScreen;
+    private PlayerUI playerUI;
 
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+        playerUI = GetComponent<PlayerUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         health = Mathf.Clamp(health, 0, maxHealth);
-        UpdateHealthUI();
+        UpdateHealthBarUI();
     }
 
-    public void UpdateHealthUI()
+    public void UpdateHealthBarUI()
     {
-        float fillFront = frontHealthBar.fillAmount;
-        float fillBack = backHealthBar.fillAmount;
-        float healthFraction = health / maxHealth;
+        var fillFront = frontHealthBar.fillAmount;
+        var fillBack = backHealthBar.fillAmount;
+        var healthFraction = health / maxHealth;
 
         if (fillBack > healthFraction)
         {
@@ -45,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
             backHealthBar.color = Color.red;
             lerpTimer += Time.deltaTime;
 
-            float percentComplete = lerpTimer / chipSpeed;
+            var percentComplete = lerpTimer / chipSpeed;
             percentComplete *= percentComplete;
             backHealthBar.fillAmount = Mathf.Lerp(fillBack, healthFraction, percentComplete);
         }
@@ -56,7 +53,7 @@ public class PlayerHealth : MonoBehaviour
             backHealthBar.color = Color.green;
             lerpTimer += Time.deltaTime;
 
-            float percentComplete = lerpTimer / chipSpeed;
+            var percentComplete = lerpTimer / chipSpeed;
             percentComplete *= percentComplete;
             frontHealthBar.fillAmount = Mathf.Lerp(fillFront, backHealthBar.fillAmount, percentComplete);
         }
@@ -68,15 +65,70 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            print("player dead");
+            PlayerDead();
+            isDead = true;
         }
         else
         {
-            print("player hit");
+            StartCoroutine(BloodyScreenEffect());
         }
 
         lerpTimer = 0f;
     }
+
+    private void PlayerDead()
+    {
+        GetComponent<InputManager>().enabled = false;
+        GetComponentInChildren<Animator>().enabled = true;
+        GetComponent<ScreenBlackout>().StartFade();
+        StartCoroutine(ShowGameOverUI());
+    }
+
+    private IEnumerator ShowGameOverUI()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playerUI.UpdateText("GAME OVER");
+    }
+
+    private IEnumerator BloodyScreenEffect()
+    {
+        if (bloodyScreen.activeInHierarchy == false)
+        {
+            bloodyScreen.SetActive(true);
+        }
+
+        yield return StartCoroutine(BloodyFadeEffect());
+
+        if (bloodyScreen.activeInHierarchy == true)
+        {
+            bloodyScreen.SetActive(false);
+        }
+    }
+
+    private IEnumerator BloodyFadeEffect(float startingAlpha = 0.5f)
+    {
+        var image = bloodyScreen.GetComponentInChildren<Image>();
+        var startColor = image.color;
+        startColor.a = startingAlpha;
+        image.color = startColor;
+
+        var duration = 2f;
+        var elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            var alpha = Mathf.Lerp(startingAlpha, 0f, elapsedTime / duration);
+
+            var newColor = image.color;
+            newColor.a = alpha;
+            image.color = newColor;
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null; // wait for next frame
+        }
+    }
+
 
     public void RestoreHealth(float healAmount)
     {
@@ -88,7 +140,10 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("XBotAttackHand"))
         {
-            TakeDamage(other.gameObject.GetComponent<XBotHand>().damage);
+            if (isDead == false)
+            {
+                TakeDamage(other.gameObject.GetComponent<XBotHand>().damage);
+            }
         }
     }
 }

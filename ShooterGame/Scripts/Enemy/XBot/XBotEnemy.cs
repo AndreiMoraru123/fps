@@ -10,7 +10,7 @@ public class XBotEnemy : Enemy
 
     void Start()
     {
-        xBotHand = GetComponent<XBotHand>();
+        xBotHand = GetComponentInChildren<XBotHand>();
         if (xBotHand != null)
         {
             xBotHand.damage = xBotDamage;

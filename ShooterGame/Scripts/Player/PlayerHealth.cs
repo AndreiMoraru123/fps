@@ -79,15 +79,16 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerDead()
     {
         GetComponent<InputManager>().enabled = false;
+        GetComponent<PlayerInteract>().enabled = false;
         GetComponentInChildren<Animator>().enabled = true;
-        GetComponent<ScreenBlackout>().StartFade();
         StartCoroutine(ShowGameOverUI());
+        GetComponent<ScreenBlackout>().StartFade();
     }
 
     private IEnumerator ShowGameOverUI()
     {
-        yield return new WaitForSeconds(0.5f);
         playerUI.UpdateText("GAME OVER");
+        yield return new WaitForSeconds(0.5f);
     }
 
     private IEnumerator BloodyScreenEffect()

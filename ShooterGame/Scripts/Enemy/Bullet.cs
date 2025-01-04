@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
             var player = hitTransform.GetComponent<PlayerHealth>();
             if (player.isDead == false)
             {
-                player.TakeDamage(10);
+                player.TakeDamage(bulletDamage);
             }
         }
 

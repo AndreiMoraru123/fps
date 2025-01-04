@@ -5,12 +5,30 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
+    // Singleton pattern
+    public static PlayerUI Instance { get; set; }
+
     [SerializeField]
     private TextMeshProUGUI promptText;
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     void Start()
     {
-
+        if (promptText != null)
+        {
+            promptText.text = string.Empty;
+        }
     }
 
     public void UpdateText(string promptMessage)

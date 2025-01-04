@@ -102,7 +102,7 @@ public class Throwable : MonoBehaviour
                 rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
             }
 
-            if (objectInRange.gameObject.TryGetComponent(out Enemy enemy))
+            if (objectInRange.gameObject.TryGetComponent(out Enemy enemy) && !enemy.isDead)
             {
                 // TODO: Do I want to hard code this?
                 enemy.TakeDamage(100);

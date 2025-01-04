@@ -14,13 +14,11 @@ public class PlayerHealth : MonoBehaviour
     public Image frontHealthBar;
     public Image backHealthBar;
     public GameObject bloodyScreen;
-    private PlayerUI playerUI;
 
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
-        playerUI = GetComponent<PlayerUI>();
     }
 
     // Update is called once per frame
@@ -79,7 +77,6 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerDead()
     {
         GetComponent<InputManager>().enabled = false;
-        GetComponent<PlayerInteract>().enabled = false;
         GetComponentInChildren<Animator>().enabled = true;
         StartCoroutine(ShowGameOverUI());
         GetComponent<ScreenBlackout>().StartFade();
@@ -87,7 +84,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator ShowGameOverUI()
     {
-        playerUI.UpdateText("GAME OVER");
+        PlayerUI.Instance.UpdateText("GAME OVER");
         yield return new WaitForSeconds(0.5f);
     }
 

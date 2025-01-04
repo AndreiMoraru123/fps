@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05022e80390141243bc417bd176e8df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDamage: 20
+  weaponDamage: 25
   bulletPrefab: {fileID: 8159056946072603148, guid: 362db638bbcf96f4d9bd9a21ef3108a9,
     type: 3}
   bulletSpawn: {fileID: 4646620806080477207}
@@ -347,7 +347,7 @@ MonoBehaviour:
   bulletsPerBurst: 1
   burstBulletsLeft: 0
   hipSpreadIntensity: 0.1
-  adsSpreadIntensity: 0.01
+  adsSpreadIntensity: 0.005
   muzzleEffect: {fileID: 8740692096684977670}
   reloadTime: 1.5
   magazineSize: 7

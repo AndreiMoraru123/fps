@@ -23,16 +23,9 @@ public class XBotEnemy : Enemy
         HP -= amount;
         if (HP <= 0)
         {
-            int randomValue = Random.Range(0, 2);
-            if (randomValue == 0)
-            {
-                animator.SetTrigger("DIE1");
-            }
-            else
-            {
-                animator.SetTrigger("DIE2");
-            }
             isDead = true;
+            var randomValue = Random.Range(0, 2);
+            animator.SetTrigger(randomValue == 0 ? "DIE1" : "DIE2");
         }
         else
         {

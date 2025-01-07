@@ -82,6 +82,7 @@ public class ArmedEnemy : Enemy
         if (HP <= 0)
         {
             isDead = true;
+            Destroy(gameObject);
         }
     }
 }

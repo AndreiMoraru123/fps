@@ -25,6 +25,7 @@ public class EnemySpawnController : MonoBehaviour
     void Start()
     {
         currentEnemiesPerWave = initialEnemiesPerWave;
+        GlobalReferences.Instance.waveNumber = 0;
         StartNextWave();
     }
 
@@ -32,6 +33,8 @@ public class EnemySpawnController : MonoBehaviour
     {
         currentEnemiesAlive.Clear();
         currentWave++;
+        GlobalReferences.Instance.waveNumber = currentWave;
+        PlayerUI.Instance.UpdateText("Wave: " + currentWave.ToString());
         StartCoroutine(SpawnWave());
     }
 
@@ -39,7 +42,7 @@ public class EnemySpawnController : MonoBehaviour
     {
         for (var i = 0; i < currentEnemiesPerWave; i++)
         {
-            var spawnOffset = new Vector3(Random.Range(1f, 1f), 0f, Random.Range(-1f, 1f));
+            var spawnOffset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
             var spawnPosition = transform.position + spawnOffset;
 
             var enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);

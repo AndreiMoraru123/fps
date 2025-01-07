@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -86,7 +87,23 @@ public class PlayerHealth : MonoBehaviour
     {
         PlayerUI.Instance.UpdateText("GAME OVER");
         yield return new WaitForSeconds(0.5f);
+
+        var waveSurvived = GlobalReferences.Instance.waveNumber - 1;
+        if (waveSurvived > SaveLoadManager.Instance.LoadHighScore())
+        {
+
+            SaveLoadManager.Instance.SaveHighScore(waveSurvived);
+        }
+
+        StartCoroutine(ReturnToMainMenu());
     }
+
+    private IEnumerator ReturnToMainMenu()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("MainMenu");
+    }
+
 
     private IEnumerator BloodyScreenEffect()
     {

@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
+using UnityEngine.AI;
+using System;
 
 public class Keypad : Interactable
 {
 
     [SerializeField]
-    private GameObject door;
+    private GameObject entrance;
 
     [SerializeField]
     private int[] requiredSequence;
 
     [SerializeField]
     private float sequenceTimeout = 5f; // time allowed between gestures
+
     private HandTracker handTracker;
     private bool doorOpen;
     private List<int> currentSequence = new List<int>();
@@ -127,7 +130,17 @@ public class Keypad : Interactable
     {
         doorOpen = !doorOpen;
         print($"door open status: {doorOpen}");
-        door.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
+        entrance.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
+        UpdateObstacles(doorOpen);
     }
 
+    private IEnumerator UpdateObstacles(bool isOpen)
+    {
+        yield return new WaitForSeconds(0.5f);
+        var obstacles = entrance.GetComponentsInChildren<NavMeshObstacle>();
+        foreach (var obstacle in obstacles)
+        {
+            obstacle.enabled = !isOpen;
+        }
+    }
 }

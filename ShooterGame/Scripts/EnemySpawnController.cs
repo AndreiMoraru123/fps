@@ -34,8 +34,15 @@ public class EnemySpawnController : MonoBehaviour
         currentEnemiesAlive.Clear();
         currentWave++;
         GlobalReferences.Instance.waveNumber = currentWave;
-        PlayerUI.Instance.UpdateText("Wave: " + currentWave.ToString());
+        StartCoroutine(DisplayWaveUI());
         StartCoroutine(SpawnWave());
+    }
+
+    private IEnumerator DisplayWaveUI()
+    {
+        PlayerUI.Instance.UpdateText("Wave: " + currentWave.ToString());
+        yield return new WaitForSeconds(1.5f);
+        PlayerUI.Instance.UpdateText(string.Empty);
     }
 
     private IEnumerator SpawnWave()

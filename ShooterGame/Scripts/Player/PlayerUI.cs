@@ -23,16 +23,6 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    /* EnemySpawnController.StartNextWave will set this instead
-    void Start()
-    {
-        if (promptText != null)
-        {
-            promptText.text = string.Empty;
-        }
-    }
-    */
-
     public void UpdateText(string promptMessage)
     {
         promptText.text = promptMessage;

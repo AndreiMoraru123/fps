@@ -8,11 +8,11 @@ public class WeaponBase : MonoBehaviour
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float spawnOffset = 1.5f;
     public float bulletVelocity = 30f;
     public float bulletPrefabLifetime = 3f;
     public float fireRate = 0.5f;
     protected float lastShotTime;
+    protected float spawnOffset = 1.5f; // so that I don't shoot myself with ADS
 
     protected virtual void Start()
     {
@@ -37,7 +37,7 @@ public class WeaponBase : MonoBehaviour
         }
 
         var bulletRotation = Quaternion.LookRotation(targetDirection);
-        var bulletSpawnPosition = bulletSpawn.position + (targetDirection * spawnOffset);
+        var bulletSpawnPosition = bulletSpawn.position + (targetDirection * -spawnOffset);
         var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
 
         var bulletRb = bullet.GetComponent<Rigidbody>();

@@ -336,7 +336,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8159056946072603148, guid: 362db638bbcf96f4d9bd9a21ef3108a9,
     type: 3}
   bulletSpawn: {fileID: 4646620806080477207}
-  spawnOffset: 1.5
   bulletVelocity: 500
   bulletPrefabLifetime: 3
   fireRate: 0.1
@@ -346,8 +345,8 @@ MonoBehaviour:
   shootingDelay: 0.3
   bulletsPerBurst: 1
   burstBulletsLeft: 0
-  hipSpreadIntensity: 0.1
-  adsSpreadIntensity: 0.01
+  hipSpreadIntensity: 0.05
+  adsSpreadIntensity: 0.005
   muzzleEffect: {fileID: 8740692096684977670}
   reloadTime: 1.5
   magazineSize: 7

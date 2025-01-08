@@ -221,13 +221,13 @@ public class PlayerWeapon : WeaponBase
                 isShooting = Input.GetKeyDown(KeyCode.Mouse0);
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && WeaponManager.Instance.CheckAmmoLeft(weaponModel) > 0)
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading && WeaponManager.Instance.CheckAmmoLeft(weaponModel) > 0)
             {
                 Reload();
             }
 
             // [Disabled] automatic reload when the magazine is empty
-            if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
+            if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0 && WeaponManager.Instance.CheckAmmoLeft(weaponModel) > 0)
             {
                 // Reload();
             }

@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
 using UnityEngine;
+using OAKForUnity;
 
 public class HandTracker : MonoBehaviour
 {
     [SerializeField]
-    private OAKForUnity.UBHandTracking handTracking;
+    private HandTracking handTracking;
 
     [SerializeField]
     protected float requiredStableTime = 0.5f; // how long to hold a gesture

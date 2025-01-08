@@ -206,7 +206,7 @@ MonoBehaviour:
   muzzleEffect: {fileID: 1406573030999600078}
   reloadTime: 2
   magazineSize: 30
-  bulletsLeft: 0
+  bulletsLeft: 200
   isReloading: 0
   spawnPosition: {x: 0.25, y: 0.4, z: 0.5}
   spawnRotation: {x: 0, y: 180, z: 0}

@@ -33,7 +33,8 @@ public class PlayerWeapon : WeaponBase
 
     [Header("Reloading")]
     public float reloadTime;
-    public int magazineSize, bulletsLeft;
+    public int magazineSize;
+    public int bulletsLeft;
     public bool isReloading;
 
     public Vector3 spawnPosition;
@@ -67,7 +68,7 @@ public class PlayerWeapon : WeaponBase
         }
         else
         {
-            spawnOffset = 0.5f;
+            spawnOffset = 1.5f;
             animator.SetTrigger("RECOIL");
         }
 
@@ -76,7 +77,7 @@ public class PlayerWeapon : WeaponBase
 
         var shootingDirection = CalculateDirectionAndSpread().normalized;
         var bulletRotation = Quaternion.LookRotation(shootingDirection);
-        var bulletSpawnPosition = bulletSpawn.position + shootingDirection;
+        var bulletSpawnPosition = bulletSpawn.position + (shootingDirection * spawnOffset);
         var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
 
         var bul = bullet.GetComponent<Bullet>();
@@ -133,7 +134,7 @@ public class PlayerWeapon : WeaponBase
 
     public Vector3 CalculateDirectionAndSpread()
     {
-        var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, -spawnOffset));
+        var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // center of screen
         RaycastHit hit;
         Vector3 targetPoint;
 
@@ -147,10 +148,14 @@ public class PlayerWeapon : WeaponBase
         }
 
         var direction = targetPoint - bulletSpawn.position;
-        var z = Random.Range(-spreadIntensity, spreadIntensity);
-        var y = Random.Range(-spreadIntensity, spreadIntensity);
+        var spread = spreadIntensity * Mathf.Deg2Rad;
+        var theta = Random.Range(0f, 2f * Mathf.PI); // spin like a clock
+        var phi = Random.Range(0f, spread); // how far from the center of the bullseye
+        var aimNormal = Vector3.Cross(direction, Vector3.up); // perpendicular to the aim direction
+        var randomRotation = Quaternion.AngleAxis(theta * Mathf.Rad2Deg, direction) *
+                                        Quaternion.AngleAxis(phi * Mathf.Rad2Deg, aimNormal);
 
-        return direction + new Vector3(0, y, z);
+        return randomRotation * direction;
     }
 
     // TODO: Will I ever use this?
@@ -181,15 +186,13 @@ public class PlayerWeapon : WeaponBase
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
     }
 
+
     void Update()
     {
         if (isActiveWeapon)
         {
-            foreach (Transform child in transform)
-            {
-                // TODO: Choose a layer only for the weapon UI instead
-                // child.gameObject.layer = LayerMask.NameToLayer("WeaponRender");
-            }
+            // Avoid clipping through walls
+            SetLayerRecursively(gameObject, LayerMask.NameToLayer("WeaponRender"));
 
             // Right mouse button for ADS
             if (Input.GetMouseButtonDown(1))
@@ -237,11 +240,18 @@ public class PlayerWeapon : WeaponBase
         }
         else
         {
-            foreach (Transform child in transform)
-            {
-                // TODO: Switch back to the layer needed for picking up
-                // child.gameObject.layer = LayerMask.NameToLayer("Weapon");
-            }
+            // back to picking up layer
+            SetLayerRecursively(gameObject, LayerMask.NameToLayer("Weapon"));
+        }
+    }
+
+    private void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+        obj.layer = newLayer;
+
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, newLayer);
         }
     }
 

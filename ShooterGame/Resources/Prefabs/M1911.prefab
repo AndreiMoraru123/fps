@@ -350,7 +350,7 @@ MonoBehaviour:
   muzzleEffect: {fileID: 8740692096684977670}
   reloadTime: 1.5
   magazineSize: 7
-  bulletsLeft: 0
+  bulletsLeft: 50
   isReloading: 0
   spawnPosition: {x: 0.2, y: 0.35, z: 0.8}
   spawnRotation: {x: 0, y: 180, z: 0}
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 8737147494664852164}
   - component: {fileID: 8931147485618439118}
   - component: {fileID: 8902593724199319628}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MuzzleFlashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

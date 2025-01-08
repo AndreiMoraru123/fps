@@ -1052,7 +1052,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 168
+    m_Bits: 160
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -10883,7 +10883,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 585418650}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: WeaponSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14547,7 +14547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 795441571}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: WeaponSlot_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22398,7 +22398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1275641755}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: WeaponSlot_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32641,7 +32641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1.5198975}
+  m_AnchoredPosition: {x: 0, y: 1.5200195}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913189596
@@ -38500,6 +38500,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c1b887b08667cc94cadf0c2ad6d151c5, type: 2}
     - target: {fileID: 4793872493178099417, guid: 1daa50da019dddb49b766866f91db6d3,
         type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793872493178099417, guid: 1daa50da019dddb49b766866f91db6d3,
+        type: 3}
       propertyPath: near clip plane
       value: 0.01
       objectReference: {fileID: 0}
@@ -38526,7 +38531,7 @@ PrefabInstance:
     - target: {fileID: 4793872493178099417, guid: 1daa50da019dddb49b766866f91db6d3,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 119
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4793872493178099422, guid: 1daa50da019dddb49b766866f91db6d3,
         type: 3}

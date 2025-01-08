@@ -35,7 +35,7 @@ public class ArmedEnemy : Enemy
         stateMachine.Initialize();
         player = GameObject.FindGameObjectWithTag("Player");
         // include everything but the weapon layer
-        detectionLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Weapon"));
+        detectionLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("WeaponRender"));
     }
 
     // Update is called once per frame

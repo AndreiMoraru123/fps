@@ -37,7 +37,7 @@ public class WeaponBase : MonoBehaviour
         }
 
         var bulletRotation = Quaternion.LookRotation(targetDirection);
-        var bulletSpawnPosition = bulletSpawn.position + (targetDirection * -spawnOffset);
+        var bulletSpawnPosition = bulletSpawn.position + (targetDirection * spawnOffset);
         var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
 
         var bulletRb = bullet.GetComponent<Rigidbody>();

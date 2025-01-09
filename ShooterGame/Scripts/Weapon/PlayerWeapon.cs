@@ -107,7 +107,7 @@ public class PlayerWeapon : WeaponBase
 
         SoundManager.Instance.PlayReloadSound(weaponModel);
 
-        animator.SetTrigger("RELOAD");
+        if (!isADS) animator.SetTrigger("RELOAD");
 
         isReloading = true;
         Invoke("ReloadCompleted", reloadTime);

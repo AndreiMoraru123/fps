@@ -8,7 +8,7 @@ using OAKForUnity;
 public class HandTracker : MonoBehaviour
 {
     [SerializeField]
-    private HandTracking handTracking;
+    private HandTrackingPipeline pipeline;
 
     [SerializeField]
     protected float requiredStableTime = 0.5f; // how long to hold a gesture
@@ -50,11 +50,11 @@ public class HandTracker : MonoBehaviour
     public int CurrentGesture => lastRecognizedGesture;
     public int CountFingersOnHand()
     {
-        if (handTracking != null)
+        if (pipeline != null)
         {
-            if (string.IsNullOrEmpty(handTracking.ubHandTrackingResults)) return -1;
+            if (string.IsNullOrEmpty(pipeline.handTrackingResults)) return -1;
 
-            var json = JSON.Parse(handTracking.ubHandTrackingResults);
+            var json = JSON.Parse(pipeline.handTrackingResults);
             var hand0 = json["hand_0"];
             var hand1 = json["hand_1"];
 

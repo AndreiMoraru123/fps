@@ -312,6 +312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -771,6 +776,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -973,6 +983,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
       propertyPath: handTracking
       value: 
@@ -1621,7 +1635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 1265198001}
+  pipeline: {fileID: 1265198001}
   requiredStableTime: 0.25
 --- !u!114 &145880184
 MonoBehaviour:
@@ -1873,7 +1887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 1265198001}
+  pipeline: {fileID: 1265198001}
   requiredStableTime: 0.25
 --- !u!114 &148477124
 MonoBehaviour:
@@ -3793,6 +3807,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -5320,6 +5339,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
     - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -5714,6 +5737,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
       propertyPath: handTracking
@@ -6125,7 +6153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 1265198001}
+  pipeline: {fileID: 1265198001}
   requiredStableTime: 0.25
 --- !u!114 &433839416
 MonoBehaviour:
@@ -6324,6 +6352,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -6451,6 +6484,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
         type: 3}
       propertyPath: handTracking
@@ -8938,7 +8976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 1265198001}
+  pipeline: {fileID: 1265198001}
   requiredStableTime: 0.25
 --- !u!114 &667104569
 MonoBehaviour:
@@ -9542,6 +9580,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
         type: 3}
       propertyPath: handTracking
@@ -13487,6 +13530,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -14416,6 +14464,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -14536,6 +14589,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
       propertyPath: handTracking
@@ -15056,6 +15114,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
       propertyPath: handTracking
@@ -15622,7 +15685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 1265198001}
+  pipeline: {fileID: 1265198001}
   requiredStableTime: 0.25
 --- !u!114 &1164936005
 MonoBehaviour:
@@ -16726,6 +16789,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -17022,8 +17090,7 @@ MonoBehaviour:
   useUnityBridge: 1
   tcpClientBehaviour: {fileID: 1265197999}
   colorTexture: {fileID: 0}
-  ubHandTrackingResults: 
-  countData: 0
+  handTrackingResults: 
 --- !u!1 &1273593616
 GameObject:
   m_ObjectHideFlags: 0
@@ -17157,6 +17224,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
     - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -17246,6 +17317,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
     - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -17334,6 +17409,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
       propertyPath: handTracking
       value: 
@@ -17680,6 +17759,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
       propertyPath: handTracking
       value: 
@@ -18540,6 +18623,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1505777763}
     m_Modifications:
+    - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
         type: 3}
       propertyPath: handTracking
@@ -20037,6 +20125,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -20243,6 +20336,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -20384,6 +20482,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1505777763}
     m_Modifications:
+    - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
         type: 3}
       propertyPath: handTracking
@@ -21882,6 +21985,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
     - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 25360709, guid: d5b08aa5fd0e08041893bd06407742fa, type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -21970,6 +22077,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1505777763}
     m_Modifications:
+    - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
         type: 3}
       propertyPath: handTracking
@@ -22471,7 +22583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 1265198001}
+  pipeline: {fileID: 1265198001}
   requiredStableTime: 1
 --- !u!1001 &1722396531
 PrefabInstance:
@@ -22779,6 +22891,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 422647461, guid: 318ca108b33701949abc414e17d1a685, type: 3}
       propertyPath: handTracking
       value: 
@@ -24895,6 +25011,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532866795}
     m_Modifications:
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
       propertyPath: handTracking
@@ -28094,7 +28215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 1265198001}
+  pipeline: {fileID: 1265198001}
   requiredStableTime: 0.25
 --- !u!114 &2140440733
 MonoBehaviour:
@@ -28805,6 +28926,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 1524815481635209006, guid: 36f7f239320307149b21d196d334f2c5,
         type: 3}
       propertyPath: handTracking
@@ -29696,6 +29822,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
         type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
+    - target: {fileID: 3023486206210070851, guid: 6596e65cddd0bd9409275f3792ec68ff,
+        type: 3}
       propertyPath: handTracking
       value: 
       objectReference: {fileID: 1265198001}
@@ -29860,6 +29991,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: M1911 Ammo
       objectReference: {fileID: 0}
+    - target: {fileID: 4790652349575897679, guid: 75fd178c3df82614d9917eecb6ee4a68,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 4790652349575897679, guid: 75fd178c3df82614d9917eecb6ee4a68,
         type: 3}
       propertyPath: handTracking
@@ -31689,6 +31825,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1505777763}
     m_Modifications:
+    - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
+        type: 3}
+      propertyPath: pipeline
+      value: 
+      objectReference: {fileID: 1265198001}
     - target: {fileID: 8517741762993691762, guid: 72e7426658a8ab646b0169c6b0d7c7f2,
         type: 3}
       propertyPath: handTracking

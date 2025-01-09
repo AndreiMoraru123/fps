@@ -63,12 +63,12 @@ public class PlayerWeapon : WeaponBase
 
         if (isADS)
         {
-            spawnOffset = 2.5f;
+            bulletSpawnOffset = 2.5f;
             animator.SetTrigger("RECOIL_ADS");
         }
         else
         {
-            spawnOffset = 1.5f;
+            bulletSpawnOffset = 1.5f;
             animator.SetTrigger("RECOIL");
         }
 
@@ -77,7 +77,7 @@ public class PlayerWeapon : WeaponBase
 
         var shootingDirection = CalculateDirectionAndSpread().normalized;
         var bulletRotation = Quaternion.LookRotation(shootingDirection);
-        var bulletSpawnPosition = bulletSpawn.position + (shootingDirection * spawnOffset);
+        var bulletSpawnPosition = bulletSpawn.position + (shootingDirection * bulletSpawnOffset);
         var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
 
         var bul = bullet.GetComponent<Bullet>();
@@ -166,12 +166,12 @@ public class PlayerWeapon : WeaponBase
 
         if (isADS)
         {
-            spawnOffset = 2.5f;
+            bulletSpawnOffset = 2.5f;
             animator.SetTrigger("RECOIL_ADS");
         }
         else
         {
-            spawnOffset = 0.5f;
+            bulletSpawnOffset = 1.5f;
             animator.SetTrigger("RECOIL");
         }
 

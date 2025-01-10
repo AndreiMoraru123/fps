@@ -1,21 +1,19 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class XBotEnemy : Enemy
+public class YBotEnemy : Enemy
 {
-    public XBotHand xBotHand;
-    public float xBotDamage;
+    public Transform gunBarrel;
+    private GameObject player;
+    public GameObject Player { get => player; }
 
     void Start()
     {
-        xBotHand = GetComponentInChildren<XBotHand>();
-        if (xBotHand != null)
-        {
-            xBotHand.damage = xBotDamage;
-        }
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public override void TakeDamage(int amount)
@@ -24,20 +22,7 @@ public class XBotEnemy : Enemy
         if (HP <= 0)
         {
             isDead = true;
-            var randomValue = Random.Range(0, 3);
-
-            if (randomValue == 0)
-            {
-                animator.SetTrigger("DIE1");
-            }
-            else if (randomValue == 1)
-            {
-                animator.SetTrigger("DIE2");
-            }
-            else if (randomValue == 2)
-            {
-                animator.SetTrigger("DIE3");
-            }
+            animator.SetTrigger("DIE");
 
             StartCoroutine(DisableCollider());
             StartCoroutine(DisableAnimator());
@@ -69,7 +54,7 @@ public class XBotEnemy : Enemy
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 3.5f);  // attacking // stop attacking
+        Gizmos.DrawWireSphere(transform.position, 12.5f);  // attacking // stop attacking
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, 18f);  // start chasing
@@ -77,4 +62,6 @@ public class XBotEnemy : Enemy
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, 21f);  // stop chasing
     }
+
 }
+

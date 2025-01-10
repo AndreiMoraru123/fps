@@ -8,11 +8,11 @@ public class WeaponBase : MonoBehaviour
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletVelocity = 30f;
+    public float bulletVelocity = 300f;
     public float bulletPrefabLifetime = 3f;
     public float fireRate = 0.5f;
     protected float lastShotTime;
-    protected float bulletSpawnOffset = 1.5f;  // so that I don't shoot myself
+    protected float bulletSpawnOffset = 2.5f;  // so that I don't shoot myself
 
     protected virtual void Start()
     {
@@ -25,26 +25,6 @@ public class WeaponBase : MonoBehaviour
     protected virtual bool CanShoot()
     {
         return Time.time - lastShotTime >= fireRate;
-    }
-
-    protected void Fire(Vector3 targetDirection, float accuracy = 0f)
-    {
-        if (!CanShoot()) return;
-
-        if (accuracy != 0f)
-        {
-            targetDirection = Quaternion.AngleAxis(Random.Range(-accuracy, accuracy), Vector3.up) * targetDirection;
-        }
-
-        var bulletRotation = Quaternion.LookRotation(targetDirection);
-        var bulletSpawnPosition = bulletSpawn.position + (targetDirection * bulletSpawnOffset);
-        var bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletRotation);
-
-        var bulletRb = bullet.GetComponent<Rigidbody>();
-        bulletRb.velocity = targetDirection * bulletVelocity;
-
-        StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
-        lastShotTime = Time.time;
     }
 
     protected IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)

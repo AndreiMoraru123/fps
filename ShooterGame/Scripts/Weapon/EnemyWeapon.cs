@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyWeapon : WeaponBase
 {
+    [Range(0f, 10f)]
+    public float fireRate = 8.5f;
+
     public void ShootAtTarget(Transform target)
     {
         if (!CanShoot()) return;
@@ -16,4 +19,10 @@ public class EnemyWeapon : WeaponBase
 
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
     }
+    protected virtual bool CanShoot()
+    {
+        return Time.time - lastShotTime >= (1 / fireRate);
+    }
+
+
 }

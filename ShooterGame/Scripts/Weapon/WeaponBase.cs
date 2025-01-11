@@ -10,7 +10,6 @@ public class WeaponBase : MonoBehaviour
     public Transform bulletSpawn;
     public float bulletVelocity = 300f;
     public float bulletPrefabLifetime = 3f;
-    public float fireRate = 0.5f;
     protected float lastShotTime;
     protected float bulletSpawnOffset = 2.5f;  // so that I don't shoot myself
 
@@ -20,11 +19,6 @@ public class WeaponBase : MonoBehaviour
         {
             bulletPrefab = Resources.Load("Prefabs/BulletShell") as GameObject;
         }
-    }
-
-    protected virtual bool CanShoot()
-    {
-        return Time.time - lastShotTime >= fireRate;
     }
 
     protected IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)

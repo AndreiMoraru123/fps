@@ -8,14 +8,11 @@ using UnityEngine.AI;
 public class YBotAttackState : StateMachineBehaviour
 {
     Transform player;
-    private EnemyWeapon weapon;
-    private YBotEnemy enemy;
+    EnemyWeapon weapon;
+    YBotEnemy enemy;
     NavMeshAgent agent;
     public float stopAttackingDistance = 12.5f;
-    public float sightDistance = 18f;
-    public float fieldOfView = 85f;
-    public float eyeHeight = 1.5f;
-    public LayerMask detectionLayers;
+    public float rotationSpeed = 2.5f;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -23,57 +20,46 @@ public class YBotAttackState : StateMachineBehaviour
         enemy = animator.GetComponent<YBotEnemy>();
         agent = animator.GetComponent<NavMeshAgent>();
         weapon = enemy.GetComponentInChildren<EnemyWeapon>();
-        // include everything but the weapon layer
-        detectionLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("WeaponRender"));
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (CanSeePlayer())
+        var distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
+        // check if the agent should stop attacking (too far or can't see player)
+        if (distanceFromPlayer > stopAttackingDistance)
         {
-            LookAtPlayer();
-            weapon?.ShootAtTarget(enemy.Player.transform);
+            animator.SetBool("isAttacking", false);
+            return;
         }
-        else
+
+        AimTowardsPlayer();
+
+        if (enemy.CanSeeTarget(player))
         {
-            // check if the agent should stop attacking
-            var distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
-
-            if (distanceFromPlayer > stopAttackingDistance)
-            {
-                animator.SetBool("isAttacking", false);
-            }
-
+            weapon?.ShootAtTarget(player);
         }
     }
 
-    private bool CanSeePlayer()
-    {
-        if (Vector3.Distance(agent.transform.position, player.position) < sightDistance)
-        {
-            var targetDirection = player.position - agent.transform.position - (Vector3.up * eyeHeight);
-            var angleToPlayer = Vector3.Angle(targetDirection, agent.transform.forward);
-            if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
-            {
-                var ray = new Ray(agent.transform.position + (Vector3.up * eyeHeight), targetDirection);
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, sightDistance, detectionLayers))
-                {
-                    Debug.DrawRay(ray.origin, ray.direction * sightDistance,
-                                  hitInfo.transform.gameObject == player.gameObject ? Color.green : Color.red);
-                    return hitInfo.transform.gameObject == player.gameObject;
-                }
-            }
-        }
-        return false;
-    }
 
-
-    private void LookAtPlayer()
+    private void AimTowardsPlayer()
     {
         var direction = player.position - agent.transform.position;
-        agent.transform.rotation = Quaternion.LookRotation(direction);
+        direction.y = 0;
 
-        var yRotation = agent.transform.eulerAngles.y;
-        agent.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        if (direction != Vector3.zero)
+        {
+            var targetRotation = Quaternion.LookRotation(direction);
+            agent.transform.rotation = Quaternion.Slerp(
+                agent.transform.rotation,
+                targetRotation,
+                Time.deltaTime * rotationSpeed
+            );
+
+            if (weapon != null)
+            {
+                var weaponDirection = player.position - weapon.transform.position;
+                weapon.transform.rotation = Quaternion.LookRotation(weaponDirection);
+            }
+        }
     }
 }

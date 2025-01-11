@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.AI;
 
 public class XBotEnemy : Enemy
 {
@@ -15,7 +13,6 @@ public class XBotEnemy : Enemy
         {
             xBotHand.damage = xBotDamage;
         }
-        agent = GetComponent<NavMeshAgent>();
     }
 
     public override void TakeDamage(int amount)
@@ -47,23 +44,6 @@ public class XBotEnemy : Enemy
         {
             animator.SetTrigger("DAMAGE");
         }
-    }
-
-    private IEnumerator DisableCollider()
-    {
-        yield return new WaitForSeconds(1f);
-        gameObject.GetComponent<Collider>().enabled = false;
-    }
-
-    private IEnumerator DisableAnimator()
-    {
-        yield return new WaitForSeconds(5f);
-        animator.enabled = false;
-    }
-    private IEnumerator DisableGameObject()
-    {
-        yield return new WaitForSeconds(10f);
-        gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos()

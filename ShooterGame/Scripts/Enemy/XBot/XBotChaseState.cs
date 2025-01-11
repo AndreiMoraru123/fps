@@ -15,7 +15,6 @@ public class XBotChaseState : StateMachineBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = animator.GetComponent<NavMeshAgent>();
-
         agent.speed = chaseSpeed;
     }
 

@@ -22,7 +22,6 @@ public class XBotAttackState : StateMachineBehaviour
 
         // check if the agent should stop attacking
         var distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
-
         if (distanceFromPlayer > stopAttackingDistance)
         {
             animator.SetBool("isAttacking", false);

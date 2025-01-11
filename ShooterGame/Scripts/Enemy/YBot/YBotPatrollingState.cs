@@ -10,6 +10,7 @@ public class YBotPatrollingState : StateMachineBehaviour
     public float patrollingTime = 10f;
     Transform player;
     NavMeshAgent agent;
+    YBotEnemy enemy;
     public float detectionArea = 18f;
     public float patrolSpeed = 2f;
     List<Transform> waypointsList = new List<Transform>();
@@ -17,9 +18,10 @@ public class YBotPatrollingState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        enemy = animator.GetComponent<YBotEnemy>();
         agent = animator.GetComponent<NavMeshAgent>();
-
         agent.speed = patrolSpeed;
+
         timer = 0;
 
         var waypointCluster = GameObject.FindGameObjectWithTag("Waypoints");
@@ -50,7 +52,7 @@ public class YBotPatrollingState : StateMachineBehaviour
 
         // transition to chase state
         var distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
-        if (distanceFromPlayer < detectionArea)
+        if (distanceFromPlayer < detectionArea && enemy.CanSeeTarget(player))
         {
             animator.SetBool("isChasing", true);
         }

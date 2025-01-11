@@ -21,11 +21,6 @@ public class ArmedEnemy : Enemy
 
     [Header("Weapon Values")]
     public Transform gunBarrel;
-    [Range(0.1f, 10f)]
-    public float fireRate;
-
-    [SerializeField]
-    private string currentState;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +37,6 @@ public class ArmedEnemy : Enemy
     void Update()
     {
         CanSeePlayer();
-        currentState = stateMachine.activeState.ToString();
     }
 
     public bool CanSeePlayer()

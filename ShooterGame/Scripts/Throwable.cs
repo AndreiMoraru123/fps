@@ -74,12 +74,10 @@ public class Throwable : MonoBehaviour
         var colliders = Physics.OverlapSphere(transform.position, damageRadius);
         foreach (var objectInRange in colliders)
         {
-            var rb = objectInRange.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (objectInRange.gameObject.TryGetComponent(out Enemy enemy) && !enemy.isDead)
             {
-                // TODO: apply blindness to enemies
+                enemy.ApplyBlindness();
             }
-
         }
     }
 

@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 2
-  damageRadius: 20
+  damageRadius: 35
   explosionForce: 1200
   hasBeenThrown: 0
   throwableType: 2
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 0}
+  pipeline: {fileID: 0}
   requiredStableTime: 0.5
 --- !u!1 &1526147774863250582
 GameObject:

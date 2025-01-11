@@ -1,19 +1,19 @@
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class YBotEnemy : Enemy
 {
+    LayerMask detectionLayers;
     public Transform gunBarrel;
-    private GameObject player;
-    public GameObject Player { get => player; }
+
+    [Header("Vision Settings")]
+    public float sightDistance = 18f;
+    public float fieldOfView = 85f;
+    public float eyeHeight = 1.5f;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        detectionLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("WeaponRender"));
     }
 
     public override void TakeDamage(int amount)
@@ -34,21 +34,24 @@ public class YBotEnemy : Enemy
         }
     }
 
-    private IEnumerator DisableCollider()
+    public bool CanSeeTarget(Transform player)
     {
-        yield return new WaitForSeconds(1f);
-        gameObject.GetComponent<Collider>().enabled = false;
-    }
-
-    private IEnumerator DisableAnimator()
-    {
-        yield return new WaitForSeconds(5f);
-        animator.enabled = false;
-    }
-    private IEnumerator DisableGameObject()
-    {
-        yield return new WaitForSeconds(10f);
-        gameObject.SetActive(false);
+        if (Vector3.Distance(transform.position, player.position) < sightDistance)
+        {
+            var targetDirection = player.position - transform.position - (Vector3.up * eyeHeight);
+            var angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
+            if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
+            {
+                var ray = new Ray(transform.position + (Vector3.up * eyeHeight), targetDirection);
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, sightDistance, detectionLayers))
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * sightDistance,
+                                  hitInfo.transform.gameObject == player.gameObject ? Color.green : Color.red);
+                    return hitInfo.transform.gameObject == player.gameObject;
+                }
+            }
+        }
+        return false;
     }
 
     private void OnDrawGizmos()
@@ -62,6 +65,5 @@ public class YBotEnemy : Enemy
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, 21f);  // stop chasing
     }
-
 }
 

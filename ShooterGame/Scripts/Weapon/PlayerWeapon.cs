@@ -56,7 +56,7 @@ public class PlayerWeapon : WeaponBase
         spreadIntensity = hipSpreadIntensity;
     }
 
-    private void DelayedFire()
+    private void Fire()
     {
         bulletsLeft--;
         muzzleEffect.GetComponent<ParticleSystem>().Play();
@@ -98,7 +98,7 @@ public class PlayerWeapon : WeaponBase
         if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
         {
             burstBulletsLeft--;
-            Invoke("DelayedFire", shootingDelay);
+            Invoke("Fire", shootingDelay);
         }
     }
 
@@ -158,35 +158,6 @@ public class PlayerWeapon : WeaponBase
         return randomRotation * direction;
     }
 
-    // TODO: Will I ever use this?
-    private void RapidFire()
-    {
-        // Fire with no restrictions
-        muzzleEffect.GetComponent<ParticleSystem>().Play();
-
-        if (isADS)
-        {
-            bulletSpawnOffset = 2.5f;
-            animator.SetTrigger("RECOIL_ADS");
-        }
-        else
-        {
-            bulletSpawnOffset = 1.5f;
-            animator.SetTrigger("RECOIL");
-        }
-
-        SoundManager.Instance.PlayShootingSound(weaponModel);
-
-        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);
-
-        var bul = bullet.GetComponent<Bullet>();
-        bul.bulletDamage = weaponDamage;
-
-        StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
-    }
-
-
     void Update()
     {
         if (isActiveWeapon)
@@ -235,7 +206,7 @@ public class PlayerWeapon : WeaponBase
             if (readyToShoot && isShooting && bulletsLeft > 0)
             {
                 burstBulletsLeft = bulletsPerBurst;
-                DelayedFire();
+                Fire();
             }
         }
         else

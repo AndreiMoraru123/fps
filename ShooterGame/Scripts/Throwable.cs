@@ -10,23 +10,16 @@ public enum ThrowableType
 
 public class Throwable : MonoBehaviour
 {
-    [SerializeField]
-    private float delay = 3f;
 
-    [SerializeField]
-    private float damageRadius = 20f;
-
-    [SerializeField]
-    private float explosionForce = 1200f;
+    public ThrowableData throwableData;
 
     private float countdown;
     private bool hasExploded = false;
     public bool hasBeenThrown = false;
-    public ThrowableType throwableType;
 
     private void Start()
     {
-        countdown = delay;
+        countdown = throwableData.delay;
     }
 
     private void Update()
@@ -50,7 +43,7 @@ public class Throwable : MonoBehaviour
 
     private void GetThrowableEffect()
     {
-        switch (throwableType)
+        switch (throwableData.throwableType)
         {
             case ThrowableType.Grenade:
                 GrenadeEffect();
@@ -71,7 +64,7 @@ public class Throwable : MonoBehaviour
         SoundManager.Instance.throwablesChannel.PlayOneShot(SoundManager.Instance.grenadeSound);
 
         // Physical Effect
-        var colliders = Physics.OverlapSphere(transform.position, damageRadius);
+        var colliders = Physics.OverlapSphere(transform.position, throwableData.damageRadius);
         foreach (var objectInRange in colliders)
         {
             if (objectInRange.gameObject.TryGetComponent(out Enemy enemy) && !enemy.isDead)
@@ -91,7 +84,7 @@ public class Throwable : MonoBehaviour
         SoundManager.Instance.throwablesChannel.PlayOneShot(SoundManager.Instance.grenadeSound);
 
         // Physical Effect
-        var colliders = Physics.OverlapSphere(transform.position, damageRadius);
+        var colliders = Physics.OverlapSphere(transform.position, throwableData.damageRadius);
         foreach (var objectInRange in colliders)
         {
             var directionToTarget = (objectInRange.transform.position - transform.position).normalized;
@@ -127,13 +120,13 @@ public class Throwable : MonoBehaviour
             var rb = objectInRange.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
+                rb.AddExplosionForce(throwableData.explosionForce, transform.position, throwableData.damageRadius);
             }
 
             if (objectInRange.gameObject.TryGetComponent(out Enemy enemy) && !enemy.isDead)
             {
                 // TODO: Do I want to hard code this?
-                enemy.TakeDamage(100);
+                enemy.TakeDamage(throwableData.damage);
             }
         }
     }

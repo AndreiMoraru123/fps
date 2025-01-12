@@ -215,11 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dffa1bb2bbde3f4c8e63d425e2cad5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 3
-  damageRadius: 10
-  explosionForce: 2000
+  throwableData: {fileID: 11400000, guid: 43141ac8ee09e7b45a43507bc5934318, type: 2}
   hasBeenThrown: 0
-  throwableType: 1
 --- !u!114 &419190630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc9d2bb0c49c546947b515f5b1eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTracking: {fileID: 0}
+  pipeline: {fileID: 0}
   requiredStableTime: 0.5
 --- !u!1 &7624275015107462803
 GameObject:

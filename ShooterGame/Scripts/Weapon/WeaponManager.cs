@@ -173,7 +173,7 @@ public class WeaponManager : MonoBehaviour
 
     public void PickUpThrowable(Throwable throwable)
     {
-        switch (throwable.throwableType)
+        switch (throwable.throwableData.throwableType)
         {
             case ThrowableType.Grenade:
                 PickUpThrowableAsLethal(ThrowableType.Grenade);

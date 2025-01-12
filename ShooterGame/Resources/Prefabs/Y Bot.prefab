@@ -1125,7 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b92ca4fad3fa84428b388d74bec6b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 150
+  HP: 100
   isDead: 0
   gunBarrel: {fileID: 146316130}
   sightDistance: 18

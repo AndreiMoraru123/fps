@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class YBotIdleState : StateMachineBehaviour
 {
-
     float timer;
     Transform player;
     YBotEnemy enemy;

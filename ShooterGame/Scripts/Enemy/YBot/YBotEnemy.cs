@@ -8,7 +8,7 @@ public class YBotEnemy : Enemy
 
     [Header("Vision Settings")]
     public float sightDistance = 18f;
-    public float fieldOfView = 85f;
+    public float fieldOfView = 15f;
     public float eyeHeight = 1.5f;
 
     void Start()

@@ -18,6 +18,12 @@ public class XBotAttackState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        var playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth.isDead)
+        {
+            animator.enabled = false;
+        }
+
         LookAtPlayer();
 
         // check if the agent should stop attacking

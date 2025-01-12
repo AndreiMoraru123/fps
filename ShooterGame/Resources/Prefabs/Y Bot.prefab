@@ -1129,7 +1129,7 @@ MonoBehaviour:
   isDead: 0
   gunBarrel: {fileID: 146316130}
   sightDistance: 18
-  fieldOfView: 120
+  fieldOfView: 15
   eyeHeight: 1.5
 --- !u!1 &2895939409649295176
 GameObject:
@@ -1813,7 +1813,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 146316130}
   bulletVelocity: 500
   bulletPrefabLifetime: 3
-  fireRate: 3.5
+  fireRate: 2.5
 --- !u!1 &5485110209552906414
 GameObject:
   m_ObjectHideFlags: 0

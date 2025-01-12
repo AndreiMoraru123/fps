@@ -24,6 +24,12 @@ public class YBotAttackState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        var playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth.isDead)
+        {
+            animator.enabled = false;
+        }
+
         var distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
         // check if the agent should stop attacking (too far or can't see player)
         if (distanceFromPlayer > stopAttackingDistance)
@@ -32,25 +38,30 @@ public class YBotAttackState : StateMachineBehaviour
             return;
         }
 
-        AimTowardsPlayer();
+        AimTowardsPlayer(animator);
 
         if (enemy.CanSeeTarget(player))
         {
             weapon?.ShootAtTarget(player);
+            agent.updateRotation = false;
+        }
+        else
+        {
+            agent.updateRotation = true;
         }
     }
 
 
-    private void AimTowardsPlayer()
+    private void AimTowardsPlayer(Animator animator)
     {
-        var direction = player.position - agent.transform.position;
+        var direction = player.position - animator.transform.position;
         direction.y = 0;
 
         if (direction != Vector3.zero)
         {
             var targetRotation = Quaternion.LookRotation(direction);
-            agent.transform.rotation = Quaternion.Slerp(
-                agent.transform.rotation,
+            animator.transform.rotation = Quaternion.Slerp(
+                animator.transform.rotation,
                 targetRotation,
                 Time.deltaTime * rotationSpeed
             );
@@ -59,6 +70,9 @@ public class YBotAttackState : StateMachineBehaviour
             {
                 var weaponDirection = player.position - weapon.transform.position;
                 weapon.transform.rotation = Quaternion.LookRotation(weaponDirection);
+
+                var yWeaponRotation = weapon.transform.eulerAngles.y;
+                weapon.transform.rotation = Quaternion.Euler(0, yWeaponRotation, 0);
             }
         }
     }

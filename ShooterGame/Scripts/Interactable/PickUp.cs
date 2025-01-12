@@ -11,14 +11,14 @@ public class PickUp : Interactable
 
     [SerializeField]
     private float sequenceTimeout = 3.5f; // time allowed between gestures
-    private HandTracker handTracker;
+    private HandTrackingManager handTracker;
     private string shownGesture;
     private float lastGestureTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (handTracker == null) handTracker = GetComponent<HandTracker>();
+        if (handTracker == null) handTracker = GetComponent<HandTrackingManager>();
         if (handTracker == null) Debug.LogError("missing HandTracker component.");
         UpdatePromptMessage();
     }
@@ -45,7 +45,7 @@ public class PickUp : Interactable
     private void UpdatePromptMessage(bool showProgress = false)
     {
         var message = $"Pick up {gameObject.name}: <color=red>{requiredGesture}</color>";
-        if (showProgress && handTracker.NumberToString(handTracker.CurrentGesture) == requiredGesture)
+        if (showProgress && handTracker.GetGestureFromNumber(handTracker.CurrentGesture) == requiredGesture)
         {
             var progress = handTracker.StabilityProgress;
             var colorHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(Color.yellow, Color.green, progress));
@@ -100,7 +100,7 @@ public class PickUp : Interactable
         if (handTracker != null)
         {
             var number = handTracker.CountFingersOnHand();
-            gesture = handTracker.NumberToString(number);
+            gesture = handTracker.GetGestureFromNumber(number);
         }
         else
         {

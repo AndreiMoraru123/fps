@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class XBotIdleState : StateMachineBehaviour
 {
-
     float timer;
     public float idleTime = 0f;
     Transform player;

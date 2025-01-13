@@ -18,7 +18,7 @@ public class EnemySpawnController : MonoBehaviour
     public float coolDownCounter = 0f;
 
     public List<Enemy> currentEnemiesAlive;
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabs;
     public TextMeshProUGUI coolDownCounterUI;
 
     // Start is called before the first frame update
@@ -52,7 +52,8 @@ public class EnemySpawnController : MonoBehaviour
             var spawnOffset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
             var spawnPosition = transform.position + spawnOffset;
 
-            var enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            var randomEnemy = Random.Range(0, enemyPrefabs.Count);
+            var enemy = Instantiate(enemyPrefabs[randomEnemy], spawnPosition, Quaternion.identity);
             var enemyScript = enemy.GetComponent<Enemy>();
 
             currentEnemiesAlive.Add(enemyScript);

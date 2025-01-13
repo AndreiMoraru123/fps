@@ -13,3 +13,7 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dfac84cd-3d08-43c4-a198-20b810568868" alt="demo" width="700" height="400">
 </p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/53ffbea2-edd5-469a-a225-ba27f55833b9" alt="demo" width="700" height="400">
+</p>

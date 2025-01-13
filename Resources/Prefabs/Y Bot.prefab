@@ -1789,12 +1789,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 10
+  shootingDelay: 2
   bulletPrefab: {fileID: 8159056946072603148, guid: 362db638bbcf96f4d9bd9a21ef3108a9,
     type: 3}
   bulletSpawn: {fileID: 146316130}
   bulletVelocity: 500
   bulletPrefabLifetime: 3
-  fireRate: 2.5
+  fireRate: 3.5
+  weaponModel: 1
 --- !u!1 &5485110209552906414
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,11 +14,7 @@ public enum WeaponModel
 public class PlayerWeapon : WeaponBase
 {
     public bool isActiveWeapon;
-
-    [Header("Shooting")]
-    public bool isShooting, readyToShoot;
-    private bool allowReset = true;
-    public float shootingDelay = 2f;
+    public bool isShooting;
 
     [Header("Burst")]
     public int bulletsPerBurst = 3;
@@ -124,12 +120,6 @@ public class PlayerWeapon : WeaponBase
         WeaponManager.Instance.DecreaseTotalAmmo(bulletsToReload, weaponModel);
 
         isReloading = false;
-    }
-
-    private void ResetShot()
-    {
-        readyToShoot = true;
-        allowReset = true;
     }
 
     public Vector3 CalculateDirectionAndSpread()

@@ -4,5 +4,5 @@
 *.hlsl linguist-generated=true
 *.compute linguist-generated=true
 
-ShooterGame/Scripts/** linguist-generated=false
-ShooterGame/Editor/** linguist-generated=false
+Scripts/** linguist-generated=false
+Editor/** linguist-generated=false

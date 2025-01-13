@@ -30364,7 +30364,7 @@ MonoBehaviour:
   tacticalUI: {fileID: 741354464}
   tacticalAmountUI: {fileID: 741354463}
   emptySlot: {fileID: 21300000, guid: 854af991160f2ad4e9f3b79b167229c2, type: 3}
-  greySlot: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 3}
+  greySlot: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   crosshair: {fileID: 716918371}
 --- !u!1001 &1497039653
 PrefabInstance:

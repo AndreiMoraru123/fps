@@ -1,5 +1,7 @@
 # First Person AR Shooter based on OAK For Unity
 
+### Fully playable on the [main fork](https://github.com/AndreiMoraru123/depthai-unity)
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5e7147b4-c94f-43ed-866a-b8a040a110de" alt="demo" width="700" height="400">
 </p>

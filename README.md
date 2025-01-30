@@ -1,3 +1,9 @@
+# First Person Shooter based on OAK For Unity
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5e7147b4-c94f-43ed-866a-b8a040a110de" alt="demo" width="700" height="400">
+</p>
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/395a20c0-db4e-4958-96ca-8aa8b524945d" alt="demo" width="700" height="400">
 </p>
